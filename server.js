@@ -15,6 +15,7 @@ const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const usersRoutes = require("./routes/users");
 
+app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/styles", sass({
   src: __dirname + "/styles",
@@ -24,7 +25,13 @@ app.use("/styles", sass({
 }));
 app.use(express.static("public"));
 
+//Users JSON apo
 app.use("/api/users", usersRoutes(knex));
+
+//HOme page
+app.get("/", (req, res) => {
+ res.render("index");
+});
 app.use(cookieParser());
 app.set("view engine", "ejs");
 app.use(methodOverride('_method'));
