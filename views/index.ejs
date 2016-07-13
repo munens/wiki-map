@@ -35,18 +35,18 @@
       </section>
         <section id="all-maps">
         <article class="map">
+        <% for (map of maps) { %>
           <header>
            <h1 class="title"> Favorite Restaurants in Vancouver </h1>
            <span class="location"> @Vancouver, BC </span>
-           <form method="GET" action= '/maps/:id/edit'>
-              <button type="submit">Update Map</button>
-           </form>
+           <a href='/maps/<%= map.id %>/edit'>Update Map</a>
            </header>
              <div id="map-image"> Map Image </div>
            <footer>
              <span> Created 10 days ago by Shannon </span>
              </span>
            </footer>
+           <% } %>
          </article>
         </section>
     </main>

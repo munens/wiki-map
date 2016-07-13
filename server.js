@@ -32,7 +32,9 @@ app.use(methodOverride('_method'));
 app.use("/api/users", usersRoutes(knex));
 
 app.get("/maps", (req, res) => {
-  res.render("index");
+  knex.select('id','title').from('maps').then((results) => {
+  res.render("index", {maps: results});
+});
 });
 
 app.get("/login", (req, res) => {
