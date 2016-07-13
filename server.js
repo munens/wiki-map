@@ -8,6 +8,8 @@ const express     = require("express");
 const bodyParser  = require("body-parser");
 const sass        = require("node-sass-middleware");
 const app         = express();
+const methodOverride = require('method-override')
+const cookieParser = require('cookie-parser')
 
 const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
@@ -23,6 +25,9 @@ app.use("/styles", sass({
 app.use(express.static("public"));
 
 app.use("/api/users", usersRoutes(knex));
+app.use(cookieParser());
+app.set("view engine", "ejs");
+app.use(methodOverride('_method'));
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);

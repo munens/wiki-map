@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Node Skeleton</title>
+    <title>Map.it Home Page</title>
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
@@ -10,8 +10,38 @@
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
-
   <body>
-    <h1>Hello World!</h1>
+    <nav id="nav-bar">
+      <img class="logo" src="/images/bird.png">
+      <span class="header">Map.it</span>
+      <img class="submitButton" src="images/button.png"></img>
+    </nav>
+    <main class="container">
+      <section class="new-map">
+        <h2>Add Map</h2>
+        <form method="GET" action = '/map/:id'>
+          <input class="create-map-button" type="submit" value="New-Map">
+        </form>
+      </section>
+        <section id="all-maps">
+        <article class="map">
+          <header>
+           <h1> Favorite Restaurants in Vancouver </h1>
+           <span class="location"> @Vancouver, BC </span>
+           <form method="GET" action= '/map/<%=MapID%>'>
+              <button type="submit">Update Map</button>
+           </form>
+           </header>
+             <div class="map-image"> Map Image </div>
+           <footer>
+             <span> Created 10 days ago by Shannon </span>
+             <a href="#" class="button"> a </a>
+             <a href="#" class="button"> b </a>
+             <a href="#" class="button"> c </a>
+             </span>
+           </footer>
+         </article>
+        </section>
+    </main>
   </body>
 </html>
