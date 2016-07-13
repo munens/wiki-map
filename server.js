@@ -38,15 +38,23 @@ app.get("/login", (req, res) => {
 app.get("/user", (req, res) => {
   res.render("user-profile");
 });
-app.get("/map/edit", (req, res) => {
+app.get("/maps/edit", (req, res) => {
   res.render("user-profile");
 });
 
-app.post("/map/edit", (req, res) => {
-  knex('maps').insert([{id: 1}, {title: ""}])
+app.post("/maps", (req, res) => {
+  knex('maps').insert({id: 1}).then((results) => {
+        res.json(results);
+    });
   res.redirect("/map/edit");
 });
 
+app.put("/maps", (req, res) => {
+  knex('maps').insert({id: 1}).then((results) => {
+        res.json(results);
+    });
+  res.redirect("/map/edit");
+});
 
 app.use(cookieParser());
 app.set("view engine", "ejs");
