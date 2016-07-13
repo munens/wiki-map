@@ -18,11 +18,12 @@
              <div> Map Image </div>
            <footer>
              <span> Created 10 days ago by Shannon </span>
-             <a href="#" class="button"> a </a>
-             <a href="#" class="button"> b </a>
-             <a href="#" class="button"> c </a>
-             </span>
            </footer>
+            <form method="POST" action="/maps/<%=id%>?_method=PUT">
+              <input value="<%=title%>" name= title> </input>
+              <br>
+            <button type="submit">Click here to Update Map w/ Changes</button>
+            </form>
         </article>
         </section>
     </main>

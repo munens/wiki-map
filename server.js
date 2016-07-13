@@ -24,6 +24,9 @@ app.use("/styles", sass({
   outputStyle: 'expanded'
 }));
 app.use(express.static("public"));
+app.use(cookieParser());
+app.set("view engine", "ejs");
+app.use(methodOverride('_method'));
 
 //Users JSON api
 app.use("/api/users", usersRoutes(knex));
@@ -38,27 +41,30 @@ app.get("/login", (req, res) => {
 app.get("/user", (req, res) => {
   res.render("user-profile");
 });
-app.get("/maps/edit", (req, res) => {
-  res.render("user-profile");
+app.get("/maps/:id/edit", (req, res) => {
+  knex.select('id','title').from('maps').where('id', req.params.id).then((results) => {
+    let templateVars = {
+      id: results[0].id,
+      title: results[0].title
+    }
+    res.render("edit", templateVars);
+  });
 });
 
 app.post("/maps", (req, res) => {
-  knex('maps').insert({id: 1}).then((results) => {
-        res.json(results);
+  knex('maps').returning("id").insert({title: ""}).then((results) => {
+        let id = results[0];
+      res.redirect(`/maps/${id}/edit`);
     });
-  res.redirect("/map/edit");
 });
 
-app.put("/maps", (req, res) => {
-  knex('maps').insert({id: 1}).then((results) => {
+app.put("/maps/:id", (req, res) => {
+  knex('maps')
+  .where('id', req.params.id).update({title: req.body.title}).then((results) => {
         res.json(results);
     });
-  res.redirect("/map/edit");
+  res.redirect("/maps");
 });
-
-app.use(cookieParser());
-app.set("view engine", "ejs");
-app.use(methodOverride('_method'));
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
