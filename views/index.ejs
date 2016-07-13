@@ -29,8 +29,8 @@
     <main class="container">
       <section class="new-map">
         <h2>Add Map</h2>
-        <form method="GET" action = '/map/:id'>
-          <input class="create-map-button" type="submit" value="New-Map">
+        <form method="POST" action = '/map/edit'>
+          <input class="create-map-button" type="submit" value="Create New Map">
         </form>
       </section>
         <section id="all-maps">
@@ -38,7 +38,7 @@
           <header>
            <h1 class="title"> Favorite Restaurants in Vancouver </h1>
            <span class="location"> @Vancouver, BC </span>
-           <form method="GET" action= '/map/MapID'>
+           <form method="GET" action= '/map/edit'>
               <button type="submit">Update Map</button>
            </form>
            </header>

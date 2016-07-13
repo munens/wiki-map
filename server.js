@@ -25,13 +25,29 @@ app.use("/styles", sass({
 }));
 app.use(express.static("public"));
 
-//Users JSON apo
+//Users JSON api
 app.use("/api/users", usersRoutes(knex));
 
-//HOme page
-app.get("/", (req, res) => {
- res.render("index");
+app.get("/maps", (req, res) => {
+  res.render("index");
 });
+
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+app.get("/user", (req, res) => {
+  res.render("user-profile");
+});
+app.get("/map/edit", (req, res) => {
+  res.render("user-profile");
+});
+
+app.post("/map/edit", (req, res) => {
+  knex('maps').insert([{id: 1}, {title: ""}])
+  res.redirect("/map/edit");
+});
+
+
 app.use(cookieParser());
 app.set("view engine", "ejs");
 app.use(methodOverride('_method'));
