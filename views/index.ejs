@@ -9,50 +9,59 @@
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
-      <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        height: 100%;
-      }
-    </style>
+    
+
   </head>
   <body>
+
     <nav id="nav-bar">
       <img class="logo" src="/images/bird.png">
       <span class="header">Map.it</span>
       <img class="submitButton" src="images/button.png"></img>
     </nav>
+
+
+
+
     <main class="container">
+
       <section class="new-map">
         <h2>Add Map</h2>
         <form method="POST" action = '/map/edit'>
           <input class="create-map-button" type="submit" value="Create New Map">
         </form>
       </section>
-        <section id="all-maps">
+    
+        <section id="all-maps"> 
+
         <article class="map">
+
+
+
           <header>
            <h1 class="title"> Favorite Restaurants in Vancouver </h1>
            <span class="location"> @Vancouver, BC </span>
            <form method="GET" action= '/map/edit'>
               <button type="submit">Update Map</button>
            </form>
-           </header>
-             <div id="map-image"> Map Image </div>
+          </header>
+        
+           <div id="map"></div>
+           <div id="capture"></div>
+                 
            <footer>
              <span> Created 10 days ago by Shannon </span>
              </span>
            </footer>
+        
          </article>
+    
         </section>
+    
     </main>
-    <div id="map"></div>
-    <div id="capture"></div>
-      <script>
+  
+   
+      <!-- <script>
       var map;
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -60,9 +69,10 @@
           zoom: 8
         });
       }
-    </script>
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYZBReykBLqLSONyWSUWycT_1csuRjJyY&callback=initMap">
+    </script> -->
+    
+    <script 
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYZBReykBLqLSONyWSUWycT_1csuRjJyY">
     </script>
   </body>
 </html>
