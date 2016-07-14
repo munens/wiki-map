@@ -9,9 +9,7 @@
   </head>
   <body>
     <nav id="nav-bar">
-      <img class="logo" src="/images/bird.png">
-      <span class="header">Map.it</span>
-      <img class="submitButton" src="images/button.png"></img>
+      <% include ./partials/_navbar.html %>
     </nav>
     <form method="POST" action = '/logout'>
       <input class="logout-button" type="submit" value="Logout">
