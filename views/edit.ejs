@@ -7,6 +7,7 @@
     <nav id="nav-bar">
       <img class="logo" src="/images/bird.png">
       <span class="header">Map.it</span>
+      <a href='/user'>Profile</a>
     </nav>
     <main class="container">
         <section id="create/edit map">
@@ -23,6 +24,9 @@
               <input value="<%=title%>" name= title> </input>
               <br>
             <button type="submit">Click here to Update Map w/ Changes</button>
+            </form>
+            <form method="POST" action="/maps/<%=id%>?_method=DELETE">
+            <button type="submit">Click here to Delete Map</button>
             </form>
         </article>
         </section>

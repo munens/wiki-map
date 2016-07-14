@@ -68,6 +68,14 @@ app.put("/maps/:id", (req, res) => {
   res.redirect("/maps");
 });
 
+app.delete("/maps/:id", (req, res) => {
+  knex('maps')
+  .where('id', req.params.id).del().then((results) => {
+        res.json(results);
+    });
+  res.redirect("/maps");
+});
+
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
