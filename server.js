@@ -77,13 +77,14 @@ app.post("/maps", (req, res) => {
     });
 });
 
-app.post("/maps/pins", (req, res) => {
-  console.log(req.body.title);
+app.post("/maps/:id/pins", (req, res) => {
+  console.log(req.params.id);
   knex('pins').insert({
     'title': req.body.title,
     'description': req.body.description,
     'latitude': req.body.latitude,
-    'longitude': req.body.longitude})
+    'longitude': req.body.longitude,
+    'map_id': req.params.id})
     .then((results) => {
 
     });
