@@ -78,6 +78,12 @@ app.get("/maps/:id/edit", (req, res) => {
   });
 });
 
+app.get("/maps/:id/pins", (req, res) => {
+  knex.select('*').from('pins').where('map_id', req.params.id).then((results) => {
+    res.json(results);
+    res.render("edit");
+  });
+});
 
 app.post("/maps", (req, res) => {
   knex('maps').returning("id").insert({title: ""}).then((results) => {
