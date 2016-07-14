@@ -41,14 +41,15 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
-app.post("/login", (req, res) => {
-  knex('users').returning("id").insert({email: req.body.email}, {password: req.body.password}, {name: req.body.username}).then((results) => {
-  res.cookie("username", req.body.username);
+app.post("/signup", (req, res) => {
+  knex('users').insert({email: req.body.email}, {password: req.body.password}, {name: req.body.username}).then((results) => {
+  // res.cookie("username", req.body.username);
   res.redirect("/maps");
+});
 });
 
 app.post("/logout", (req, res) => {
-  res.clearCookie("username");
+  // res.clearCookie("username");
   res.redirect("/");
 });
 
@@ -63,7 +64,7 @@ app.get("/maps/:id/edit", (req, res) => {
     let templateVars = {
       id: results[0].id,
       title: results[0].title
-      username: req.cookies["username"],
+      // username: req.cookies["username"],
     }
     res.render("edit", templateVars);
   });
@@ -74,6 +75,19 @@ app.post("/maps", (req, res) => {
         let id = results[0];
       res.redirect(`/maps/${id}/edit`);
     });
+});
+
+app.post("/maps/pins", (req, res) => {
+  console.log(req.body.title);
+  knex('pins').insert({
+    'title': req.body.title,
+    'description': req.body.description,
+    'latitude': req.body.latitude,
+    'longitude': req.body.longitude})
+    .then((results) => {
+
+    });
+    res.redirect("/maps");
 });
 
 app.put("/maps/:id", (req, res) => {

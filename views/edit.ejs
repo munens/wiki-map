@@ -28,6 +28,25 @@
               <br>
             <button type="submit">Click here to Update Map w/ Changes</button>
             </form>
+
+
+            <form method="POST" action="/maps/pins">
+              <h4> Title </h4>
+              <input value="" name= title> </input>
+              <br>
+              <h4> Description </h4>
+              <input value="" name= description> </input>
+              <br>
+              <h4> Latitude </h4>
+              <input value="" name= latitude> </input>
+              <br>
+              <h4> Longitude </h4>
+              <input value="" name= longitude> </input>
+              <br>
+            <button type="submit">Click here to create new pin</button>
+            </form>
+
+
             <form method="POST" action="/maps/<%=id%>?_method=DELETE">
             <button type="submit">Click here to Delete Map</button>
             </form>
