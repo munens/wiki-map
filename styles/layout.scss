@@ -5,3 +5,25 @@ body {
     color: #244751;
   }
 }
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+
+.all-maps {
+	height: 100%;
+}
+
+  #map {
+    height: 500px;
+    width: 500px;
+    border-radius: 15px;
+  }
+
+
+.map {
+	height: 100%;
+}  
