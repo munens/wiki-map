@@ -9,30 +9,35 @@
       <span class="header">Map.it</span>
       <img class="submitButton" src="images/button.png"></img>
     </nav>
+    <form method="POST" action = '/logout'>
+      <input class="logout-button" type="submit" value="Logout">
+    </form>
     <main class="container">
         <section id="user-info">
+        <% for (user of users) { %>
         <article>
            <span> Profile Picture</span>
-           <h1> Username </h1>
+           <h1> <%= user.name %> </h1>
              <div>
               <h4> Location </h4>
               <h4> # of maps </h4>
               <h4> Fav maps </h4>
              </div>
          </article>
+         <% } %>
         </section>
         <section id="user-maps">
-        <article class="map">
-          <header>
-           <h1> Favorite Restaurants in Vancouver </h1>
-           <span> @Vancouver, BC </span>
-           </header>
-             <div> Map Image </div>
-           <footer>
-             <span> Created 10 days ago by Shannon </span>
-             </span>
-           </footer>
-           <form method="POST" action="/maps/<%=id%>?_method=PUT">
+          <article class="map">
+            <header>
+             <h1> Favorite Restaurants in Vancouver </h1>
+             <span> @Vancouver, BC </span>
+            </header>
+               <div> Map Image </div>
+            <footer>
+               <span> Created 10 days ago by Shannon </span>
+               </span>
+            </footer>
+            <form method="POST" action="/maps/<%=id%>?_method=PUT">
               <input value="<%=profile_picture%>" name= profile-picture> </input>
               <br>
               <input value="<%=username%>" name= username> </input>
@@ -41,9 +46,9 @@
               <br>
               <input value="<%=total-maps%>" name= total-maps> </input>
               <input value="<%=fav-maps%>" name= fav-maps> </input>
-            <button type="submit">Click here to Update Profile w/ Changes</button>
+              <button type="submit">Click here to Update Profile w/ Changes</button>
             </form>
-        </article>
+          </article>
         </section>
     </main>
   </body>
