@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   </head>
   <body>
     <nav id="nav-bar">
-      <img class="logo" src="/images/bird.png">
-      <span class="header">Map.it</span>
+      <% include ./partials/_navbar.ejs %>
     </nav>
     <main class="container">
     <section id="sign-up">
        <form method="POST" action = '/signup'>
         <h4> Username </h4>
-        <input class="username" type="input" value="">
+        <input class="username" type="input" placeholder="Username">
         <br>
         <h4> Email </h4>
-        <input class="email" type="input" value="">
+        <input type="email" placeholder="Email">
         <br>
         <h4> Password </h4>
-        <input class="password" type="input" value="">
+        <input type="password" placeholder="Password">
         <br>
-        <input class="new-user-button" type="submit" value="Sign Up">
+        <input class="btn btn-info" class="new-user-button" type="submit" value="Sign Up">
       </form>
     </section>
     <section id="login">
@@ -34,7 +37,7 @@
         <h4> Password </h4>
         <input class="password" type="input" value="">
         <br>
-        <button type="submit">Login</button>
+        <button class="btn btn-info" type="submit">Login</button>
       </form>
     </article>
     </section>

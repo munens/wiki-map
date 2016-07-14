@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Create/Edit Map Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   </head>
   <body>
     <nav id="nav-bar">
@@ -9,7 +13,7 @@
       <span class="header">Map.it</span>
       <a href='/user'>Profile</a>
       <form method="POST" action = '/logout'>
-        <input class="logout-button" type="submit" value="Logout">
+        <input class="btn btn-warning" type="submit" value="Logout">
       </form>
     </nav>
     <main class="container">
@@ -26,7 +30,7 @@
             <form method="POST" action="/maps/<%=id%>?_method=PUT">
               <input value="<%=title%>" name= title> </input>
               <br>
-            <button type="submit">Click here to Update Map w/ Changes</button>
+            <button class="btn btn-info" type="submit">Click here to Update Map w/ Changes</button>
             </form>
 
 
@@ -43,12 +47,12 @@
               <h4> Longitude </h4>
               <input value="" name= longitude> </input>
               <br>
-            <button type="submit">Click here to create new pin</button>
+            <button class="btn btn-info" type="submit">Click here to create new pin</button>
             </form>
 
 
             <form method="POST" action="/maps/<%=id%>?_method=DELETE">
-            <button type="submit">Click here to Delete Map</button>
+            <button class="btn btn-warning" type="submit">Click here to Delete Map</button>
             </form>
         </article>
         </section>
