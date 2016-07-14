@@ -43,12 +43,13 @@ app.get("/login", (req, res) => {
 
 app.post("/login", (req, res) => {
   knex('users').returning("id").insert({email: req.body.email}, {password: req.body.password}, {name: req.body.username}).then((results) => {
-  res.cookie("username", req.body.username);
+  //res.cookie("username", req.body.username);
   res.redirect("/maps");
+  });
 });
 
 app.post("/logout", (req, res) => {
-  res.clearCookie("username");
+  //res.clearCookie("username");
   res.redirect("/");
 });
 
@@ -63,7 +64,7 @@ app.get("/maps/:id/edit", (req, res) => {
     let templateVars = {
       id: results[0].id,
       title: results[0].title
-      username: req.cookies["username"],
+      //username: req.cookies["username"],
     }
     res.render("edit", templateVars);
   });
