@@ -74,8 +74,13 @@ app.get("/maps/:id/pins", (req, res) => {
 });
 
 app.post("/maps", (req, res) => {
-  knex('maps').returning("id").insert({title: ""}).then((results) => {
-        let id = results[0];
+  knex('maps').returning("id").insert({
+    title: "",
+    latitude: 49.2827,
+    longitude: -123.1207
+    })
+    .then((results) => {
+      let id = results[0];
       res.redirect(`/maps/${id}/edit`);
     });
 });
