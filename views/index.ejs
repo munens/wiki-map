@@ -9,69 +9,43 @@
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
-    
-
   </head>
   <body>
-
     <nav id="nav-bar">
       <img class="logo" src="/images/bird.png">
       <span class="header">Map.it</span>
       <a href='/user'>Profile</a>
+       <form method="POST" action = '/logout'>
+          <input class="logout-button" type="submit" value="Logout">
+       </form>
     </nav>
-
-
-
-
     <main class="container">
-
       <section class="new-map">
         <h2>Add Map</h2>
         <form method="POST" action = '/maps'>
           <input class="create-map-button" type="submit" value="Create New Map">
         </form>
       </section>
-    
-        <section id="all-maps"> 
-
-        <article class="map">
-
-        <% for (map of maps) { %>
-          <header>
-           <h1 class="title"> Favorite Restaurants in Vancouver </h1>
-           <span class="location"> @Vancouver, BC </span>
-           <a href='/maps/<%= map.id %>/edit'>Update Map</a>
-           </header>
-             <div id="map-image"> Map Image </div>
-
-
-
-
-          <header>
-           <h1 class="title"> Favorite Restaurants in Vancouver </h1>
-           <span class="location"> @Vancouver, BC </span>
-           <form method="GET" action= '/map/edit'>
-              <button type="submit">Update Map</button>
-           </form>
-          </header>
-        
-                           
-
-           <footer>
-             <span> Created 10 days ago by Shannon </span>
-             </span>
-           </footer>
-
-           <% } %>
-           <div id="map"></div>
-           <div id="capture"></div>
- 
-         </article>
-    
-        </section>
-    
+      <section id="all-maps">
+      <article class="map">
+      <% for (map of maps) { %>
+        <header>
+         <h1 class="map title"> <%= map.title %></h1>
+         <span class="location"> @Vancouver, BC </span>
+         <a href='/maps/<%= map.id %>/edit'>Edit Map</a>
+         </header>
+           <div id="map-image"> Map Image </div>
+         <footer>
+           <span> Created 10 days ago by Shannon </span>
+           </span>
+         </footer>
+         <% } %>
+         <div id="map"></div>
+         <div id="capture"></div>
+       </article>
+      </section>
     </main>
-    <script 
+    <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYZBReykBLqLSONyWSUWycT_1csuRjJyY&region=CA">
     </script>
   </body>

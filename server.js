@@ -32,22 +32,38 @@ app.use(methodOverride('_method'));
 app.use("/api/users", usersRoutes(knex));
 
 app.get("/maps", (req, res) => {
-  knex.select('id','title').from('maps').then((results) => {
+  knex.select('*').from('maps').then((results) => {
   res.render("index", {maps: results});
-});
+  });
 });
 
 app.get("/login", (req, res) => {
   res.render("login");
 });
-app.get("/user", (req, res) => {
-  res.render("user-profile");
+
+app.post("/login", (req, res) => {
+  knex('users').returning("id").insert({email: req.body.email}, {password: req.body.password}, {name: req.body.username}).then((results) => {
+  res.cookie("username", req.body.username);
+  res.redirect("/maps");
 });
+
+app.post("/logout", (req, res) => {
+  res.clearCookie("username");
+  res.redirect("/");
+});
+
+app.get("/user", (req, res) => {
+  knex.select('*').from('maps').then((results) => {
+  res.render("user-profile", {users: results});
+  });
+});
+
 app.get("/maps/:id/edit", (req, res) => {
   knex.select('id','title').from('maps').where('id', req.params.id).then((results) => {
     let templateVars = {
       id: results[0].id,
       title: results[0].title
+      username: req.cookies["username"],
     }
     res.render("edit", templateVars);
   });

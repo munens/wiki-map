@@ -9,14 +9,35 @@
       <span class="header">Map.it</span>
     </nav>
     <main class="container">
-        <section id="login">
-        <article>
-          <header>
-           <h1> Login</h1>
-           <h4> Username </h4>
-           <h4> Password </h4>
-        </article>
-        </section>
+    <section id="sign-up">
+       <form method="POST" action = '/signup'>
+        <h4> Username </h4>
+        <input class="username" type="input" value="">
+        <br>
+        <h4> Location </h4>
+        <input class="location" type="input" value="">
+        <br>
+        <h4> Password </h4>
+        <input class="password" type="input" value="">
+        <br>
+        <input class="new-user-button" type="submit" value="Sign Up">
+      </form>
+    </section>
+    <section id="login">
+    <article>
+      <header>
+       <h1> Login</h1>
+       <form method="GET" action = '/maps'>
+        <h4> Username </h4>
+        <input class="username" type="input" value="">
+        <br>
+        <h4> Password </h4>
+        <input class="password" type="input" value="">
+        <br>
+        <button type="submit">Login</button>
+      </form>
+    </article>
+    </section>
     </main>
   </body>
 </html>
