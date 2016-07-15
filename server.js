@@ -122,9 +122,12 @@ res.redirect("/maps");
 
 app.put("/maps/:id", (req, res) => {
   knex('maps')
-  .where('id', req.params.id).update({title: req.body.title}).then((results) => {
-        res.json(results);
-    });
+  .where('id', req.params.id).update({
+  title: req.body.title,
+  updated_at: new Date()})
+  .then((results) => {
+    res.json(results);
+  });
   res.redirect("/maps");
 });
 
