@@ -37,9 +37,18 @@ app.use("/api/users", usersRoutes(knex));
 app.use("/api/maps", mapsRoutes(knex));
 app.use("/api/pins", pinsRoutes(knex));
 
+// npm install express validator and app.use(expressValidator), then should work
+// item needs to be the params you are passing - could also just use for
+// specific user route
+// i.e. req.sanitize(req.body.email).escape()
+app.use((req, res, next) => {
+  for (let item in req.params){
+    req.sanitize(item).escape();
+  }
+  next();
+});
 
 app.get("/maps", (req, res) => {
-
   knex.select('*').from('maps').then((results) => {
   res.render("index", {maps: results, username: req.cookies["username"]});
   });
@@ -51,9 +60,9 @@ app.get("/login", (req, res) => {
 
 app.post("/signup", (req, res) => {
   knex('users').insert({
-  'email': req.body.email,
-  'password': req.body.password,
-  'name': req.body.username})
+  'email': req.sanitize(req.body.email).escape(),
+  'password': req.sanitize(req.body.password).escape(),
+  'name': req.sanitize(req.body.username).escape()})
   .returning("id")
   .then((results) => {
     let user_id = results[0];
@@ -105,12 +114,13 @@ app.post("/maps", (req, res) => {
     });
 });
 
+
 app.post("/maps/:id/pins", (req, res) => {
   knex('pins').insert({
-    'title': req.body.title,
-    'description': req.body.description,
-    'latitude': req.body.latitude,
-    'longitude': req.body.longitude,
+    'title': req.sanitize(req.body.title).escape(),
+    'description': req.sanitize(req.body.description).escape(),
+    'latitude': req.sanitize(req.body.latitude).escape(),
+    'longitude': req.sanitize(req.body.longitude).escape(),
     'map_id': req.params.id,
     'user_id': req.cookies["user_id"]})
     .then((results) => {
