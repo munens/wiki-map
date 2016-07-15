@@ -14,6 +14,15 @@ module.exports = (knex) => {
   	  
   });
   
+  router.get("/:id", (req, res) => {
+  	knex
+  	  .select('*')
+  	  .from('maps').where('id', req.params.id).then((results) => {
+  	  	res.json(results[0]);
+  	  });
+  	  
+  });
+
   router.get("/:id/pins", (req, res) => {
   	knex
   	  .select('*')

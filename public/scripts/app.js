@@ -149,12 +149,12 @@ function initMap() {
                       '</div>'
         });
 
-
   };
 
   
 
   var pinContent = {
+
     latLong : {lat: 49.2823, lng: -123.1107},
     title: 'Uluru',
     locationImage : 'https://s-media-cache-ak0.pinimg.com/564x/f3/c5/08/f3c508ea5071061c9d90d9f49fdc3c13.jpg',
@@ -171,15 +171,13 @@ function initMap() {
             url : "https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194"
   };
 
-  
-
-  
+}
 
   /**************************************************************************/
 
   //add marker on page; also add form on new markers added to the page that can 
   //then be posted in database:
-
+  /*
   
   var formElement = "<input type='text' id='text4mrkr' value='marker text' />" +
                     "<input type='button' value='submit' onclick='addPlace();' />"
@@ -187,11 +185,11 @@ function initMap() {
 
 
   google.maps.event.addListener(map, 'click', function(event) {
-    /* 
+    
     infoWindow.setContent(formElement);
     infoWindow.setPosition(event.latLong);
     infoWindow,open(map);
-    */
+    
     addPin(event.latLng, map);
     
     
@@ -212,10 +210,7 @@ function initMap() {
 
   //google.maps.event.addDomListener(window, 'load');
 
-
-}
-
-
+*/
 
 
 

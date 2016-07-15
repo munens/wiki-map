@@ -27,8 +27,25 @@ html, body {
 	height: 500px;
 	width: 500px;
 	border-radius: 15px;
+
 }	
 
 .map {
-	height: 100%;
+	float:left;
+	margin: 30px;
 }  
+
+
+
+#article-edit{
+	height:100%;
+	float: right;
+}
+
+
+#map-edit {
+	height: 800px;
+	width: 1200px;
+	border-radius: 60px;	
+}
+
