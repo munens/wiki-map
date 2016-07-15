@@ -39,8 +39,9 @@ app.use("/api/pins", pinsRoutes(knex));
 
 
 app.get("/maps", (req, res) => {
+
   knex.select('*').from('maps').then((results) => {
-  res.render("index", {maps: results});
+  res.render("index", {maps: results, username: req.cookies["username"]});
   });
 });
 
@@ -49,14 +50,21 @@ app.get("/login", (req, res) => {
 });
 
 app.post("/signup", (req, res) => {
-  knex('users').insert({email: req.body.email}, {password: req.body.password}, {name: req.body.username}).then((results) => {
-  // res.cookie("username", req.body.username);
-  res.redirect("/maps");
-});
+  knex('users').insert({
+  'email': req.body.email,
+  'password': req.body.password,
+  'name': req.body.username})
+  .returning("id")
+  .then((results) => {
+    let user_id = results[0];
+    res.cookie("user_id", user_id);
+    res.redirect("/maps");
+  });
+
 });
 
 app.post("/logout", (req, res) => {
-  // res.clearCookie("username");
+  res.clearCookie("user_id");
   res.redirect("/");
 });
 
@@ -70,8 +78,8 @@ app.get("/maps/:id/edit", (req, res) => {
   knex.select('id','title').from('maps').where('id', req.params.id).then((results) => {
     let templateVars = {
       id: results[0].id,
-      title: results[0].title
-      // username: req.cookies["username"],
+      title: results[0].title,
+      user_id: req.cookies["user_id"]
     }
     res.render("edit", templateVars);
   });
@@ -85,10 +93,12 @@ app.get("/maps/:id/edit", (req, res) => {
 // });
 
 app.post("/maps", (req, res) => {
+  // let user_id: req.cookies["user_id"],
   knex('maps').returning("id").insert({
     title: "",
     latitude: 49.2827,
-    longitude: -123.1207
+    longitude: -123.1207,
+    user_id: req.cookies["user_id"]
     })
     .then((results) => {
       let id = results[0];
@@ -97,16 +107,17 @@ app.post("/maps", (req, res) => {
 });
 
 app.post("/maps/:id/pins", (req, res) => {
-  console.log(req.params.id);
   knex('pins').insert({
     'title': req.body.title,
     'description': req.body.description,
     'latitude': req.body.latitude,
     'longitude': req.body.longitude,
-    'map_id': req.params.id})
+    'map_id': req.params.id,
+    'user_id': req.cookies["user_id"]})
     .then((results) => {
-    });
-    res.redirect("/maps");
+
+  });
+res.redirect("/maps");
 });
 
 app.put("/maps/:id", (req, res) => {

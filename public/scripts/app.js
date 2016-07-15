@@ -6,9 +6,9 @@ $(document).ready( function(){
 
 
 function addPinsToMap(map, pins){
-    
+
     for (var key in pins){
-      
+
       var pin = new google.maps.Marker({
         position: {lat: pins[key].latitude, lng: pins[key].longitude},
         title: pins[key].title
@@ -30,7 +30,7 @@ function getUsers(){
 }
 
 function getPins(map) {
- 
+
   $.ajax({
     method: "GET",
     url: "/api/pins",
@@ -39,14 +39,14 @@ function getPins(map) {
   });
 
 }
-  
+
 function getMaps(map) {
- 
+
   $.ajax({
     method: "GET",
     url: "/api/maps",
   }).done((results) => {
-    
+
   });
 
 }
@@ -113,7 +113,7 @@ function initMap() {
 
   };
 
-  
+
 
   var pinContent = {
     latLong : {lat: 49.2823, lng: -123.1107},
@@ -132,38 +132,38 @@ function initMap() {
             url : "https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194"
   };
 
-  
 
-  
+
+
 
   /**************************************************************************/
 
-  //add marker on page; also add form on new markers added to the page that can 
+  //add marker on page; also add form on new markers added to the page that can
   //then be posted in database:
 
-  
+
   var formElement = "<input type='text' id='text4mrkr' value='marker text' />" +
                     "<input type='button' value='submit' onclick='addPlace();' />"
   var infoWindow = new google.maps.InfoWindow();
 
 
   google.maps.event.addListener(map, 'click', function(event) {
-    /* 
+    /*
     infoWindow.setContent(formElement);
     infoWindow.setPosition(event.latLong);
     infoWindow,open(map);
     */
     addPin(event.latLng, map);
-    
-    
+
+
   });
-  
+
 
   var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   var labelIndex = 0;
- 
+
   function addPin(location, map) {
- 
+
     var pin = new google.maps.Marker({
       position: location,
       label: labels[labelIndex++ % labels.length],
@@ -184,7 +184,7 @@ function initMap() {
     var infowindow1 = new google.maps.InfoWindow({
       content: content[0]
     });
-    
+
     var infowindow2 = new google.maps.InfoWindow({
       content: content[1]
     });
