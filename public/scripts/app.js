@@ -1,14 +1,54 @@
 $(document).ready( function(){
 
   initMap();
+
 });
 
+function addMapsToPage(maps){
+  
+  var mapOptions = {
 
+      center: {lat: 49.2827, lng: -123.1207},
+      zoom: 13,
+      zoomControl: true,
+      scaleControl: true,
+
+      //map type:
+      mapTypeId: google.maps.MapTypeId.SATELLITE,
+
+      // map type controls:
+      mapTypeControl: true,
+      mapTypeControlOptions: {
+        style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+        position: google.maps.ControlPosition.TOP_CENTER
+      },
+
+      //map zoom controls:
+      zoomControl: true,
+      zoomControlOptions: {
+        position: google.maps.ControlPosition.RIGHT_BOTTOM
+      },
+
+  }
+
+  for(var key in maps){
+      
+      console.log(maps[key]);
+      
+      var id = maps[key].id;
+      var mapDiv = document.getElementById(`map-${id}`);
+      var gmap = new google.maps.Map(mapDiv, mapOptions);
+      
+      getPins(gmap, maps[key]);
+
+  }
+
+}
 
 function addPinsToMap(map, pins){
     
-    for (var key in pins){
-      
+    for(var key in pins){
+
       var pin = new google.maps.Marker({
         position: {lat: pins[key].latitude, lng: pins[key].longitude},
         title: pins[key].title
@@ -16,6 +56,7 @@ function addPinsToMap(map, pins){
 
       pin.setMap(map);
     }
+
 }
 
 function getUsers(){
@@ -29,24 +70,24 @@ function getUsers(){
   });
 }
 
-function getPins(map) {
+function getPins(gmap, map) {
  
   $.ajax({
     method: "GET",
-    url: "/api/pins",
+    url: "/api/maps/"+ map.id + "/pins",
   }).done((results) => {
-    addPinsToMap(map, results)
+    addPinsToMap(gmap, results)
   });
 
 }
   
-function getMaps(map) {
+function getMaps() {
  
   $.ajax({
     method: "GET",
     url: "/api/maps",
   }).done((results) => {
-    
+    addMapsToPage(results);
   });
 
 }
@@ -83,15 +124,13 @@ function initMap() {
   }
 
 
-  /**************************************************************************/
-  //adding pins to map:
-
-  var mapDiv = document.getElementById('map');
-  var map = new google.maps.Map(mapDiv, mapOptions);
+  //var mapDiv = document.getElementById('map');
+  //var map = new google.maps.Map(mapDiv, mapOptions);
 
 
-  getPins(map);
-
+  
+  getMaps();
+  
 
   function addWindow(pin){
 

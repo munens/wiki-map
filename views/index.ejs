@@ -22,22 +22,22 @@
         </form>
       </section>
       <section id="all-maps">
-      <article class="map">
+      
       <% for (map of maps) { %>
+      <article class="map">
         <header>
          <h1 class="map title"> <%= map.title %></h1>
          <span class="location"> @Vancouver, BC </span>
          <a href='/maps/<%= map.id %>/edit'>Edit Map</a>
          </header>
-           <div id="map-image"> Map Image </div>
+         <div id="map-<%= map.id %>" class="map-id"> Map Image </div>
          <footer>
            <span> Created 10 days ago by Shannon </span>
            </span>
          </footer>
+              </article>
          <% } %>
-         <div id="map"></div>
-         <div id="capture"></div>
-       </article>
+  
       </section>
     </main>
     <script
