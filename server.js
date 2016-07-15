@@ -60,7 +60,6 @@ app.post("/signup", (req, res) => {
     res.cookie("user_id", user_id);
     res.redirect("/maps");
   });
-
 });
 
 app.post("/logout", (req, res) => {
