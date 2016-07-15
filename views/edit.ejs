@@ -5,7 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Create/Edit Map Page</title>
+
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
+    <link rel="stylesheet" href="/styles/edit-map.css" type="text/css" />
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/edit.js"></script>
@@ -16,6 +20,7 @@
     </nav>
     <main class="container">
         <section id="create-edit-map">
+
         <article >
           <header>
            <h1> Favorite Restaurants in Vancouver </h1>
@@ -25,13 +30,17 @@
            <footer>
              <span> Created 10 days ago by Shannon </span>
            </footer>
+
+        <article>
+
             <form method="POST" action="/maps/<%=id%>?_method=PUT">
-              <input value="<%=title%>" name= title> </input>
+              <input class="title" value="<%=title%>" name= title> </input>
               <br>
-            <button class="btn btn-info" type="submit">Click here to Update Map w/ Changes</button>
+            <button class="btn btn-info" type="submit">Click here to Update Title</button>
             </form>
-
-
+            <form method="POST" action="/maps/<%=id%>?_method=DELETE">
+            <button class="btn btn-warning" type="submit">Click here to Delete Map</button>
+            </form>
             <form method="POST" action="/maps/<%=id%>/pins">
               <h4> Title </h4>
               <input value="" name= title> </input>
@@ -46,11 +55,6 @@
               <input value="" name= longitude> </input>
               <br>
             <button class="btn btn-info" type="submit">Click here to create new pin</button>
-            </form>
-
-
-            <form method="POST" action="/maps/<%=id%>?_method=DELETE">
-            <button class="btn btn-warning" type="submit">Click here to Delete Map</button>
             </form>
         </article>
         <article id="article-edit">

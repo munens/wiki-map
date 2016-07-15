@@ -5,7 +5,7 @@ $(document).ready( function(){
 });
 
 function addMapsToPage(maps){
-  
+
   var mapOptions = {
 
       center: {lat: 49.2827, lng: -123.1207},
@@ -32,13 +32,13 @@ function addMapsToPage(maps){
   }
 
   for(var key in maps){
-      
+
       console.log(maps[key]);
-      
+
       var id = maps[key].id;
       var mapDiv = document.getElementById(`map-${id}`);
       var gmap = new google.maps.Map(mapDiv, mapOptions);
-      
+
       getPins(gmap, maps[key]);
 
   }
@@ -46,8 +46,9 @@ function addMapsToPage(maps){
 }
 
 function addPinsToMap(map, pins){
-    
-    for(var key in pins){
+
+
+    for (var key in pins){
 
       var pin = new google.maps.Marker({
         position: {lat: pins[key].latitude, lng: pins[key].longitude},
@@ -70,8 +71,9 @@ function getUsers(){
   });
 }
 
+
 function getPins(gmap, map) {
- 
+
   $.ajax({
     method: "GET",
     url: "/api/maps/"+ map.id + "/pins",
@@ -80,13 +82,15 @@ function getPins(gmap, map) {
   });
 
 }
-  
+
+
 function getMaps() {
- 
+
   $.ajax({
     method: "GET",
     url: "/api/maps",
   }).done((results) => {
+
     addMapsToPage(results);
   });
 
@@ -128,9 +132,9 @@ function initMap() {
   //var map = new google.maps.Map(mapDiv, mapOptions);
 
 
-  
+
   getMaps();
-  
+
 
   function addWindow(pin){
 
@@ -151,7 +155,7 @@ function initMap() {
 
   };
 
-  
+
 
   var pinContent = {
 
@@ -173,34 +177,45 @@ function initMap() {
 
 }
 
+
+
+
+
   /**************************************************************************/
 
-  //add marker on page; also add form on new markers added to the page that can 
+  //add marker on page; also add form on new markers added to the page that can
   //then be posted in database:
+
   /*
   
+
+
+
+
   var formElement = "<input type='text' id='text4mrkr' value='marker text' />" +
                     "<input type='button' value='submit' onclick='addPlace();' />"
   var infoWindow = new google.maps.InfoWindow();
 
 
   google.maps.event.addListener(map, 'click', function(event) {
-    
+
+    /*
+
     infoWindow.setContent(formElement);
     infoWindow.setPosition(event.latLong);
     infoWindow,open(map);
     
     addPin(event.latLng, map);
-    
-    
+
+
   });
-  
+
 
   var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   var labelIndex = 0;
- 
+
   function addPin(location, map) {
- 
+
     var pin = new google.maps.Marker({
       position: location,
       label: labels[labelIndex++ % labels.length],
@@ -218,7 +233,7 @@ function initMap() {
     var infowindow1 = new google.maps.InfoWindow({
       content: content[0]
     });
-    
+
     var infowindow2 = new google.maps.InfoWindow({
       content: content[1]
     });
