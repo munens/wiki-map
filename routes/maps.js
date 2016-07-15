@@ -32,10 +32,10 @@ module.exports = (knex) => {
   	  
   });
 
-  router.get("/:id/pins/:id", (req, res) => {
+  router.get("/:id/pins/:pinid", (req, res) => {
   	knex
   	  .select('*')
-  	  .from('pins').where('map_id', req.params.id).then((results) => {
+  	  .from('pins').where('pinid', req.params.id).then((results) => {
   	  	res.json(results);
   	  });
   	  
