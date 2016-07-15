@@ -30,12 +30,12 @@
     <article>
       <header>
        <h1> Login</h1>
-       <form method="GET" action = '/maps'>
-        <h4> Username </h4>
-        <input class="username" type="input" placeholder="Username" value="">
+       <form method="POST" action = '/login'>
+        <h4> Email </h4>
+        <input name="email" type="email" placeholder="Email">
         <br>
         <h4> Password </h4>
-        <input type="password" value="" placeholder="Password">
+        <input name="password" type="password" placeholder="Password">
         <br>
         <button class="btn btn-info" type="submit"> Login </button>
       </form>

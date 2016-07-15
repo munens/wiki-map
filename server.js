@@ -50,12 +50,28 @@ app.use((req, res, next) => {
 
 app.get("/maps", (req, res) => {
   knex.select('*').from('maps').then((results) => {
-  res.render("index", {maps: results, username: req.cookies["username"]});
+  res.render("index", {maps: results, user_id: req.cookies["user_id"]});
   });
 });
 
 app.get("/login", (req, res) => {
-  res.render("login");
+  res.render("login", {user_id: req.cookies["user_id"]})
+});
+
+app.post("/login", (req, res) => {
+  knex.select('id')
+  .from('users')
+  .where({'email': req.body.email,
+  'password': req.body.password})
+  .then((results) => {
+    if (results.length === 1) {
+      let user_id = results[0].id;
+      res.cookie("user_id", user_id);
+      res.redirect("/maps");
+    } else {
+      res.redirect("/login");
+    }
+  });
 });
 
 app.post("/signup", (req, res) => {
@@ -73,7 +89,7 @@ app.post("/signup", (req, res) => {
 
 app.post("/logout", (req, res) => {
   res.clearCookie("user_id");
-  res.redirect("/");
+  res.redirect("/login");
 });
 
 app.get("/user", (req, res) => {
