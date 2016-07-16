@@ -41,28 +41,44 @@ app.use("/api/pins", pinsRoutes(knex));
 // item needs to be the params you are passing - could also just use for
 // specific user route
 // i.e. req.sanitize(req.body.email).escape()
-app.use((req, res, next) => {
-  for (let item in req.params){
-    req.sanitize(item).escape();
-  }
-  next();
-});
+// app.use((req, res, next) => {
+//   for (let item in req.params){
+//     req.sanitize(item).escape();
+//   }
+//   next();
+// });
 
 app.get("/maps", (req, res) => {
   knex.select('*').from('maps').then((results) => {
-  res.render("index", {maps: results, username: req.cookies["username"]});
+  res.render("index", {maps: results, user_id: req.cookies["user_id"]});
   });
 });
 
 app.get("/login", (req, res) => {
-  res.render("login");
+  res.render("login", {user_id: req.cookies["user_id"]})
+});
+
+app.post("/login", (req, res) => {
+  knex.select('id')
+  .from('users')
+  .where({'email': req.body.email,
+  'password': req.body.password})
+  .then((results) => {
+    if (results.length === 1) {
+      let user_id = results[0].id;
+      res.cookie("user_id", user_id);
+      res.redirect("/maps");
+    } else {
+      res.redirect("/login");
+    }
+  });
 });
 
 app.post("/signup", (req, res) => {
   knex('users').insert({
-  'email': req.sanitize(req.body.email).escape(),
-  'password': req.sanitize(req.body.password).escape(),
-  'name': req.sanitize(req.body.username).escape()})
+  'email': req.body.email,
+  'password': req.body.password,
+  'name': req.body.username})
   .returning("id")
   .then((results) => {
     let user_id = results[0];
@@ -73,7 +89,7 @@ app.post("/signup", (req, res) => {
 
 app.post("/logout", (req, res) => {
   res.clearCookie("user_id");
-  res.redirect("/");
+  res.redirect("/login");
 });
 
 app.get("/user", (req, res) => {
@@ -93,17 +109,9 @@ app.get("/maps/:id/edit", (req, res) => {
   });
 });
 
-// app.get("/maps/:id/pins", (req, res) => {
-//   knex.select('*').from('pins').where('map_id', req.params.id).then((results) => {
-//     res.json(results);
-//     res.render("edit");
-//   });
-// });
-
 app.post("/maps", (req, res) => {
-  // let user_id: req.cookies["user_id"],
   knex('maps').returning("id").insert({
-    title: "",
+    title: "Edit this Title",
     latitude: 49.2827,
     longitude: -123.1207,
     user_id: req.cookies["user_id"]
@@ -129,19 +137,19 @@ app.post("/maps/:id/pins", (req, res) => {
     .then((results) => {
 
   });
+     //res.redirect("/maps");
 
 });
 
-app.put("/maps/:id", (req, res) => {
-  knex('maps')
-  .where('id', req.params.id).update({
-  title: req.body.title,
-  updated_at: new Date()})
-  .then((results) => {
-    res.json(results);
-  });
-  res.redirect("/maps");
-});
+// app.put("/maps/:id", (req, res) => {
+//   knex('maps')
+//   .where('id', req.params.id).update({
+//   title: req.body.title,
+//   updated_at: new Date()})
+//   .then((results) => {
+//     res.json(results);
+//   });
+// });
 
 app.delete("/maps/:id", (req, res) => {
   knex('maps')

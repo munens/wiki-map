@@ -6,13 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login Page</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+     <script type="text/javascript" src="/scripts/sign-up-button.js"></script>
   </head>
   <body>
-    <nav id="nav-bar">
-      <% include ./partials/_navbar.html %>
+    <nav>
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">Map.it</a>
+          </div>
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+           <% if (user_id) { %>
+              <form action="/logout" method="POST">
+              <button>Logout</button>
+              </form>
+           <% } else { %>
+           <button id="sign-up-button" class="btn btn-default" type="button"> Sign Up
+            </button>
+           <% } %>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
     </nav>
-    <main class="container">
-    <section id="sign-up">
+    <!-- <main class="container">
+    <div> <h1> Map.it </h1> </div>
+    <section class= "sign-up">
+      <div>
        <form method="POST" action = '/signup'>
         <h4> Username </h4>
         <input name="username" class="username" type="input" placeholder="Username">
@@ -25,22 +46,46 @@
         <br>
         <input class="btn btn-info" class="new-user-button" type="submit" value="Sign Up">
       </form>
-    </section>
-    <section id="login">
+      </div>
+    </section> -->
+    <section>
+    <div class="container">
+  <div class="row">
+    <div class="Absolute-Center is-Responsive">
+      <div id="logo-container"></div>
+      <div class="col-sm-12 col-md-10 col-md-offset-1">
+      <h1> Map.it </h1>
+        <form action="" id="loginForm">
+          <div class="form-group input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input class="form-control" type="text" name='username' placeholder="username"/>
+          </div>
+          <div class="form-group input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+            <input class="form-control" type="password" name='password' placeholder="password"/>
+          </div>
+          <div class="form-group">
+            <button type="button" class="btn btn-def btn-block">Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+    <section>
+    <!-- <section id="login">
     <article>
-      <header>
-       <h1> Login</h1>
-       <form method="GET" action = '/maps'>
-        <h4> Username </h4>
-        <input class="username" type="input" placeholder="Username" value="">
+       <form method="POST" action = '/login'>
+        <h4> Email </h4>
+        <input name="email" type="email" placeholder="Email">
         <br>
         <h4> Password </h4>
-        <input type="password" value="" placeholder="Password">
+        <input name="password" type="password" placeholder="Password">
         <br>
         <button class="btn btn-info" type="submit"> Login </button>
       </form>
     </article>
-    </section>
+    </section> -->
     </main>
   </body>
 </html>

@@ -11,9 +11,18 @@ module.exports = (knex) => {
   	  .from('maps').then((results) => {
   	  	res.json(results);
   	  });
-  	  
+
   });
 
+  router.put("/:id", (req, res) => {
+    knex('maps')
+      .where('id', req.params.id)
+      .update({
+        title: req.body.title,
+        updated_at: new Date()})
+      .then((results) => {
+        res.json(results);
+  });
 
   router.post("/:id/pins", (req, res) => {
     
@@ -30,19 +39,17 @@ module.exports = (knex) => {
       'user_id': req.cookies["user_id"]})
       .then((results) => {
 
+      })
     });
-
   });
 
-
-  
   router.get("/:id", (req, res) => {
   	knex
   	  .select('*')
   	  .from('maps').where('id', req.params.id).then((results) => {
   	  	res.json(results[0]);
   	  });
-  	  
+
   });
 
   router.get("/:id/pins", (req, res) => {
@@ -51,7 +58,7 @@ module.exports = (knex) => {
   	  .from('pins').where('map_id', req.params.id).then((results) => {
   	  	res.json(results);
   	  });
-  	  
+
   });
 
   /*******not used **************/
@@ -62,7 +69,7 @@ module.exports = (knex) => {
   	  .from('pins').where('pinid', req.params.id).then((results) => {
   	  	res.json(results);
   	  });
-  	  
+
   });
 
   /******************************/
