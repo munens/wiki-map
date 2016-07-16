@@ -17,9 +17,13 @@
     </nav>
     <main class="container">
       <section class="new-map">
+      <% if (user_id) { %>
         <form method="POST" action = '/maps'>
           <input class="btn btn-info" type="submit" value="Create New Map">
         </form>
+        <% } else { %>
+        <p> Please log in to create a map! </p>
+        <% } %>
       </section>
       <section id="all-maps">
 
@@ -27,11 +31,12 @@
       <article class="map">
         <header>
          <h1 class="map title"> <%= map.title %></h1>
+         <h2 class="user"> <%= map.username %></h2>
          <a href='/maps/<%= map.id %>/edit'>Edit Map</a>
          </header>
          <div id="map-<%= map.id %>" class="map-id"> Map Image </div>
          <footer>
-           <span> Created 10 days ago by Shannon </span>
+           <span> Created 10 days ago by <%= map.name %> </span>
            </span>
          </footer>
               </article>

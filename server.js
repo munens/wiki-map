@@ -48,8 +48,19 @@ app.use("/api/pins", pinsRoutes(knex));
 //   next();
 // });
 
+app.use((req, res, next) => {
+  if (!(req.cookies["user_id"]) && req.url.match('edit')){
+    res.redirect('/login');
+  }
+  return next();
+});
+
 app.get("/maps", (req, res) => {
-  knex.select('*').from('maps').then((results) => {
+  knex.select('*')
+  .from('maps')
+  .innerJoin('users', 'users.id', 'maps.user_id')
+  .then((results) => {
+    console.log(results);
   res.render("index", {maps: results, user_id: req.cookies["user_id"]});
   });
 });
@@ -93,18 +104,25 @@ app.post("/logout", (req, res) => {
 });
 
 app.get("/user", (req, res) => {
-  knex.select('*').from('maps').then((results) => {
-  res.render("user-profile", {users: results});
+  knex.select('*')
+  .from('users')
+  .where('id', req.cookies["user_id"])
+  .then((results) => {
+
+    console.log(results);
+  res.render("user-profile", {users: results[0], user_id: req.cookies["user_id"]})
   });
 });
 
 app.get("/maps/:id/edit", (req, res) => {
   knex.select('id','title').from('maps').where('id', req.params.id).then((results) => {
+    console.log(results);
     let templateVars = {
       id: results[0].id,
       title: results[0].title,
       user_id: req.cookies["user_id"]
     }
+
     res.render("edit", templateVars);
   });
 });

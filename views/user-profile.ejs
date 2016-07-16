@@ -5,53 +5,67 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>User Page</title>
+     <link rel="stylesheet" href="/styles/profile-page.scss" type="text/css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   </head>
   <body>
     <nav id="nav-bar">
       <% include ./partials/_navbar.html %>
     </nav>
-    <form method="POST" action = '/logout'>
+   <!--  <form method="POST" action = '/logout'>
       <input class="logout-button" type="submit" value="Logout">
-    </form>
+    </form> -->
     <main class="container">
-        <section id="user-info">
-        <% for (user of users) { %>
-        <article>
-           <span> Profile Picture</span>
-           <h1> <%= user.name %> </h1>
-             <div>
-              <h4> Location </h4>
-              <h4> # of maps </h4>
-              <h4> Fav maps </h4>
-             </div>
-         </article>
-         <% } %>
-        </section>
-        <section id="user-maps">
-          <article class="map">
-            <header>
-             <h1> Favorite Restaurants in Vancouver </h1>
-             <span> @Vancouver, BC </span>
-            </header>
-               <div> Map Image </div>
-            <footer>
-               <span> Created 10 days ago by Shannon </span>
-               </span>
-            </footer>
-            <form method="POST" action="/maps/<%=id%>?_method=PUT">
-              <input value="<%=profile_picture%>" name= profile-picture> </input>
-              <br>
-              <input value="<%=username%>" name= username> </input>
-              <br>
-              <input value="<%=location%>" name= location> </input>
-              <br>
-              <input value="<%=total-maps%>" name= total-maps> </input>
-              <input value="<%=fav-maps%>" name= fav-maps> </input>
-              <button type="submit">Click here to Update Profile w/ Changes</button>
-            </form>
-          </article>
-        </section>
+<div class="col-lg-6 col-sm-6">
+    <div class="card hovercard">
+        <div class="card-background">
+            <img class="card-bkimg" alt="" src="http://lorempixel.com/100/100/people/9/">
+            <!-- http://lorempixel.com/850/280/people/9/ -->
+        </div>
+        <div class="useravatar">
+            <img alt="" src="http://lorempixel.com/100/100/people/9/">
+        </div>
+        <div class="card-info"> <span class="card-title"> <%=users.name%></span>
+
+        </div>
+    </div>
+    <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
+        <div class="btn-group" role="group">
+            <button type="button" id="stars" class="btn btn-primary" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                <div class="hidden-xs">Stars</div>
+            </button>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" id="favorites" class="btn btn-default" href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                <div class="hidden-xs">Favorites</div>
+            </button>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" id="following" class="btn btn-default" href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <div class="hidden-xs">Following</div>
+            </button>
+        </div>
+    </div>
+
+        <div class="well">
+      <div class="tab-content">
+        <div class="tab-pane fade in active" id="tab1">
+          <h3>This is tab 1</h3>
+        </div>
+        <div class="tab-pane fade in" id="tab2">
+          <h3>This is tab 2</h3>
+        </div>
+        <div class="tab-pane fade in" id="tab3">
+          <h3>This is tab 3</h3>
+        </div>
+      </div>
+    </div>
+
+    </div>
+
+
+
+
     </main>
   </body>
 </html>
