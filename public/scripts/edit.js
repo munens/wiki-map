@@ -4,20 +4,15 @@ $(document).ready(function(){
 	method: 'GET',
 	url: '/api/maps/' + $('body').data('id') 
 	}).done((map) => {
-		initMap(map)
+		initMap(map, $('body').data('id'))
 	});
 
 })
 
 function addPinsToMap(map, pins){
-    
-	
-		
-	  
-
 
     for(var key in pins){
-      
+
       var contentString = '<div id="content">'+
                       '<div id="siteNotice">'+
                       '</div>'+
@@ -31,34 +26,24 @@ function addPinsToMap(map, pins){
                       '</div>'+
                       '</div>'
 
-
       var infowindow = new google.maps.InfoWindow({
       		content : contentString
       });
       
       var pin = new google.maps.Marker({
         position: {lat: pins[key].latitude, lng: pins[key].longitude},
-        title: pins[key].title
+        title: pins[key].title,
+        draggable: true
       });
 
       pin.setMap(map);
 
-      console.log(pins[key]);
-
-      // $.ajax({
-      // 	url: '/api/maps/' + pins[key].map_id + '/pins/' + pins[key].id, 
-      // 	method: "GET"
-      // }).done((pin) => {
-      	
-
-
-      // })
-
       pin.addListener('click', function() {
       	infowindow.open(map, this);
       });
-    
+
     }
+
 }
 
 function getPins(gmap, map) {
@@ -73,7 +58,7 @@ function getPins(gmap, map) {
 }
 
 
-function initMap(map){
+function initMap(map, mapid){
 
 	var mapOptions = {
 
@@ -105,12 +90,8 @@ function initMap(map){
 
   getPins(gmap, map);
 
-
   google.maps.event.addListener(gmap, 'click', function(event) {
-     // infoWindow.setContent(formElement);
-     // infoWindow.setPosition(event.latLong);
-     // infoWindow,open(map);
-    addPin(event.latLng, gmap);
+      addPin(event.latLng, gmap)
   });
   
 
@@ -118,31 +99,69 @@ function initMap(map){
   var labelIndex = 0;
  
   function addPin(location, map) {
- 
-    var pin = new google.maps.Marker({
+ 	
+  	var $panel = "<article>" +
+	    			"<form method='POST' action='/api/maps/" + mapid + "/pins'" +
+	    				"<h4> Title </h4>" +
+	    			 		"<input class='title' value='' name='title'></input>" +
+	    			 		"<br>" +
+	    			 	"<h4> Description </h4>" +
+	    			 		"<textarea class='description' value='' name= description> </textarea>" +
+	    			 		"<br><br>" +
+	    			 	"<button class='btn btn-info' type='submit'>Click here to create new pin</button> " +
+	            	 "</form>" +
+	            	 "<br>" 
+	              "</article>"
+
+  	var infowindow = new google.maps.InfoWindow();
+
+  	var pin = new google.maps.Marker({
       position: location,
       label: labels[labelIndex++ % labels.length],
-      map: map
+      map: map,
+      draggable: true
+      
     });
 
-
-
-
-
-
-
-
     
+    var infowindow = new google.maps.InfoWindow({
+      	content : $panel,
+
+    });
+
+    pin.addListener('click', function() {
+      	infowindow.open(map, this);
+    });
+
+    var pinObj = { latitude: location.lat(),
+    			   longitude: location.lng(),
+				   map_id: mapid };
 
 
 
+	console.log(location.lat());
+	console.log(pinObj);	
 
-    pin.addListener('double-click', function(){
+    $("body").on('click', ".btn.btn-info", function(event){
+    	event.preventDefault();
 
-    })
-    
+    	pinObj.title = $('.title').val();
+		pinObj.description = $('.description').val();
+				
+
+    	$.ajax({
+    		url: '/api/maps/' + mapid + '/pins/',
+    		method: 'POST',
+    		data: pinObj,
+    		success: () => { console.log('u know'); }
+    	});
+
+    });
   }
 
 
-
 }
+
+
+
+

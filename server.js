@@ -116,17 +116,20 @@ app.post("/maps", (req, res) => {
 
 
 app.post("/maps/:id/pins", (req, res) => {
+  
   knex('pins').insert({
-    'title': req.sanitize(req.body.title).escape(),
-    'description': req.sanitize(req.body.description).escape(),
-    'latitude': req.sanitize(req.body.latitude).escape(),
-    'longitude': req.sanitize(req.body.longitude).escape(),
+    'title': req.body.title,
+    'description': req.body.description,
+    'latitude': req.body.latitude,
+    'longitude': req.body.longitude,
     'map_id': req.params.id,
+    'pin_type': "create",
+    'original_pin_id': 0,
     'user_id': req.cookies["user_id"]})
     .then((results) => {
 
   });
-res.redirect("/maps");
+
 });
 
 app.put("/maps/:id", (req, res) => {

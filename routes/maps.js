@@ -13,6 +13,28 @@ module.exports = (knex) => {
   	  });
   	  
   });
+
+
+  router.post("/:id/pins", (req, res) => {
+    
+    console.log(req.body);
+
+    knex('pins').insert({
+      'title': req.body.title,
+      'description': req.body.description,
+      'latitude': req.body.latitude,
+      'longitude': req.body.longitude,
+      'map_id': req.params.id,
+      'pin_type': "create",
+      'original_pin_id': 0,
+      'user_id': req.cookies["user_id"]})
+      .then((results) => {
+
+    });
+
+  });
+
+
   
   router.get("/:id", (req, res) => {
   	knex
@@ -32,6 +54,8 @@ module.exports = (knex) => {
   	  
   });
 
+  /*******not used **************/
+
   router.get("/:id/pins/:pinid", (req, res) => {
   	knex
   	  .select('*')
@@ -40,6 +64,8 @@ module.exports = (knex) => {
   	  });
   	  
   });
+
+  /******************************/
 
   return router;
 }
