@@ -10,6 +10,7 @@
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+    <script type="text/javascript" src="/scripts/favorites.js"></script>
   </head>
   <body>
      <nav id="nav-bar">
@@ -26,22 +27,20 @@
         <% } %>
       </section>
       <section id="all-maps">
-
-      <% for (map of maps) { %>
-      <article class="map">
-        <header>
-         <h1 class="map title"> <%= map.title %></h1>
-         <h2 class="user"> <%= map.username %></h2>
-         <a href='/maps/<%= map.id %>/edit'>Edit Map</a>
-         </header>
-         <div id="map-<%= map.id %>" class="map-id"> Map Image </div>
-         <footer>
-           <span> Created 10 days ago by <%= map.name %> </span>
-           </span>
-         </footer>
-              </article>
-         <% } %>
-
+        <% for (map of maps) { %>
+        <article class="map">
+          <header>
+           <h1 class="map title"> <%= map.title %></h1>
+           <h2 class="user"> <%= map.username %></h2>
+           <a href='/maps/<%= map.map_id %>/edit'>Edit Map</a>
+           </header>
+           <div id="map-<%= map.map_id %>" class="map-id"> </div>
+           <footer data-mapid= <%= map.map_id %> >
+             <span> Created <%= map.created_at %> by <%= map.name %> </span>
+             <p class= "glyphicon glyphicon-heart"> </p>
+           </footer>
+        </article>
+        <% } %>
       </section>
     </main>
     <script

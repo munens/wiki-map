@@ -36,6 +36,7 @@ function addMapsToPage(maps){
       console.log(maps[key]);
 
       var id = maps[key].id;
+
       var mapDiv = document.getElementById(`map-${id}`);
       var gmap = new google.maps.Map(mapDiv, mapOptions);
 
@@ -187,7 +188,7 @@ function initMap() {
   //then be posted in database:
 
   /*
-  
+
 
 
 
@@ -204,7 +205,7 @@ function initMap() {
     infoWindow.setContent(formElement);
     infoWindow.setPosition(event.latLong);
     infoWindow,open(map);
-    
+
     addPin(event.latLng, map);
 
 

@@ -22,7 +22,7 @@
     <main class="container">
         <section id="create-edit-map">
         <article>
-          <% if (user_id == id) { %>
+
             <form class="map-title" method="POST" action="/maps/<%=id%>?_method=PUT">
               <input class="title" value="<%=title%>" name= title> </input>
               <br>
@@ -31,9 +31,9 @@
             <form method="POST" action="/maps/<%=id%>?_method=DELETE">
             <button class="btn btn-warning" type="submit">Click here to Delete Map</button>
             </form>
-          <% } else {%>
+
           <h2> <%=title%> </h2>
-          <% } %>
+
             <form method="POST" action="/maps/<%=id%>/pins">
               <h4> Title </h4>
               <input value="" name= title> </input>
