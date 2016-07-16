@@ -137,20 +137,14 @@ function initMap(map, mapid){
     			   longitude: location.lng(),
 				   map_id: mapid };
 
-
-
-	console.log(location.lat());
-	console.log(pinObj);	
-
     $("body").on('click', ".btn.btn-info", function(event){
     	event.preventDefault();
 
     	pinObj.title = $('.title').val();
-		pinObj.description = $('.description').val();
-				
+		pinObj.description = $('.description').val();	
 
     	$.ajax({
-    		url: '/api/maps/' + mapid + '/pins/',
+    		url: '/api/maps/' + mapid + '/pins',
     		method: 'POST',
     		data: pinObj,
     		success: () => { console.log('u know'); }

@@ -22,12 +22,12 @@ module.exports = (knex) => {
         updated_at: new Date()})
       .then((results) => {
         res.json(results);
+    });
+
   });
-
+      
   router.post("/:id/pins", (req, res) => {
-    
-    console.log(req.body);
-
+    console.log('post mapid pins');
     knex('pins').insert({
       'title': req.body.title,
       'description': req.body.description,
@@ -39,9 +39,11 @@ module.exports = (knex) => {
       'user_id': req.cookies["user_id"]})
       .then((results) => {
 
-      })
-    });
+      });
+
   });
+
+
 
   router.get("/:id", (req, res) => {
   	knex

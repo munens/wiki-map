@@ -123,23 +123,23 @@ app.post("/maps", (req, res) => {
 });
 
 
-app.post("/maps/:id/pins", (req, res) => {
+// app.post("/maps/:id/pins", (req, res) => {
   
-  knex('pins').insert({
-    'title': req.body.title,
-    'description': req.body.description,
-    'latitude': req.body.latitude,
-    'longitude': req.body.longitude,
-    'map_id': req.params.id,
-    'pin_type': "create",
-    'original_pin_id': 0,
-    'user_id': req.cookies["user_id"]})
-    .then((results) => {
+//   knex('pins').insert({
+//     'title': req.body.title,
+//     'description': req.body.description,
+//     'latitude': req.body.latitude,
+//     'longitude': req.body.longitude,
+//     'map_id': req.params.id,
+//     'pin_type': "create",
+//     'original_pin_id': 0,
+//     'user_id': req.cookies["user_id"]})
+//     .then((results) => {
 
-  });
-     //res.redirect("/maps");
+//   });
+//      //res.redirect("/maps");
 
-});
+// });
 
 // app.put("/maps/:id", (req, res) => {
 //   knex('maps')
