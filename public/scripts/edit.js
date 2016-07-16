@@ -33,7 +33,7 @@ function addPinsToMap(map, pins){
       var pin = new google.maps.Marker({
         position: {lat: pins[key].latitude, lng: pins[key].longitude},
         title: pins[key].title,
-        draggable: true
+        draggable: false
       });
 
       pin.setMap(map);
@@ -90,17 +90,12 @@ function initMap(map, mapid){
 
   getPins(gmap, map);
 
-  google.maps.event.addListener(gmap, 'click', function(event) {
-      addPin(event.latLng, gmap)
-  });
-  
 
-  var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  var labelIndex = 0;
- 
-  function addPin(location, map) {
- 	
-  	var $panel = "<article>" +
+  
+  google.maps.event.addListener(gmap, 'click', function(event) {
+      //addPin(event.latLng, gmap)
+
+      var $panel = "<article>" +
 	    			"<form method='POST' action='/api/maps/" + mapid + "/pins'" +
 	    				"<h4> Title </h4>" +
 	    			 		"<input class='title' value='' name='title'></input>" +
@@ -110,15 +105,17 @@ function initMap(map, mapid){
 	    			 		"<br><br>" +
 	    			 	"<button class='btn btn-info' type='submit'>Click here to create new pin</button> " +
 	            	 "</form>" +
-	            	 "<br>" 
+	            	 "<br>" +
+	            	 "<br>" +
+	            	 "<button class='btn btn-danger' type='submit'>Delete Pin</button>" + 
 	              "</article>"
 
   	var infowindow = new google.maps.InfoWindow();
 
   	var pin = new google.maps.Marker({
-      position: location,
+      position: event.latLng,
       label: labels[labelIndex++ % labels.length],
-      map: map,
+      map: gmap,
       draggable: true
       
     });
@@ -130,14 +127,14 @@ function initMap(map, mapid){
     });
 
     pin.addListener('click', function() {
-      	infowindow.open(map, this);
+      	infowindow.open(gmap, this);
     });
 
-    var pinObj = { latitude: location.lat(),
-    			   longitude: location.lng(),
+    var pinObj = { latitude: event.latLng.lat(),
+    			   longitude: event.latLng.lng(),
 				   map_id: mapid };
 
-    $("body").on('click', ".btn.btn-info", function(event){
+    $("#article-edit").on('click', ".btn.btn-info", function(event){
     	event.preventDefault();
 
     	pinObj.title = $('.title').val();
@@ -151,6 +148,17 @@ function initMap(map, mapid){
     	});
 
     });
+    
+    
+  });
+  
+
+  var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  var labelIndex = 0;
+ 
+  function addPin(location, map) {
+ 	
+  	
   }
 
 

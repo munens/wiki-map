@@ -30,7 +30,14 @@
            <footer>
              <span> Created 10 days ago by Shannon </span>
            </footer>
-
+        <form class="map-title" method="POST" action="/maps/<%=id%>?_method=PUT">
+          <input class="title" value="<%=title%>" name= title> </input>
+              <br>
+          <button class="btn btn-info" type="submit">Click here to Update Title</button>
+        </form>
+        <form method="POST" action="/maps/<%=id%>?_method=DELETE">
+          <button class="btn btn-warning" type="submit">Click here to Delete Map</button>
+        </form>
         
         <article id="article-edit">
           <div id='map-edit'></div>
