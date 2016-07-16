@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/edit.js"></script>
+    <script type="text/javascript" src="/scripts/map-title.js"></script>
   </head>
   <body data-id=<%= id %>>
      <nav id="nav-bar">
@@ -21,19 +22,8 @@
     <main class="container">
         <section id="create-edit-map">
 
-        <article >
-          <header>
-           <h1> Favorite Restaurants in Vancouver </h1>
-           <span> @Vancouver, BC </span>
-           </header>
-             <div> Map Image </div>
-           <footer>
-             <span> Created 10 days ago by Shannon </span>
-           </footer>
-
         <article>
-
-            <form method="POST" action="/maps/<%=id%>?_method=PUT">
+            <form class="map-title" method="POST" action="/maps/<%=id%>?_method=PUT">
               <input class="title" value="<%=title%>" name= title> </input>
               <br>
             <button class="btn btn-info" type="submit">Click here to Update Title</button>
@@ -59,11 +49,6 @@
         </article>
         <article id="article-edit">
           <div id='map-edit'></div>
-
-        </article>
-
-
-
         </section>
     </main>
     <script
