@@ -56,10 +56,14 @@ app.use((req, res, next) => {
 });
 
 app.get("/maps", (req, res) => {
-  knex.select('*', 'maps.id as map_id')
+  knex.select('*',
+  'maps.id as map_id')
+  //'favorites.map_id as fav_map')
   .from('maps')
   .innerJoin('users', 'users.id', 'maps.user_id')
+  //.innerJoin('favorites', 'users.id', 'favorites.user_id')
   .then((results) => {
+    console.log(results);
   res.render("index", {maps: results, user_id: req.cookies["user_id"]});
   });
 });
@@ -94,11 +98,11 @@ app.post("/favorites/:id", (req, res) => {
   });
 });
 
-
 app.delete("/favorites/:id", (req, res) => {
-  knex('favorites').where((
-  'user_id', req.cookies["user_id"]),
-  ('map_id', req.params.id)).del()
+  knex('favorites').where({
+  'user_id': req.cookies["user_id"],
+  'map_id': req.params.id})
+  .del()
   .then((results) => {
     res.json(results);
   });
@@ -129,15 +133,26 @@ app.post("/logout", (req, res) => {
   res.redirect("/login");
 });
 
-app.get("/user", (req, res) => {
-  knex.select('*')
+app.get("/users/:id/profile", (req, res) => {
+  knex.select('*', 'maps.id as map_id')
   .from('users')
-  .where('id', req.cookies["user_id"])
+  .innerJoin('maps', 'users.id', 'maps.user_id')
+  .where('users.id', req.cookies["user_id"])
   .then((results) => {
-    console.log(results);
   res.render("user-profile", {users: results[0], user_id: req.cookies["user_id"]})
   });
 });
+
+app.get("/users/:id", (req, res) => {
+  knex.select('*')
+  .from('users')
+  .returning('id')
+  .where('id', $('span').data('id'))
+  .then((results) => {
+  res.render("user-profile", {users: results[0], user_id: req.cookies["user_id"]})
+  });
+});
+
 
 app.get("/maps/:id/edit", (req, res) => {
   knex.select('id','title', 'user_id').from('maps').where('id', req.params.id).then((results) => {
@@ -151,6 +166,7 @@ app.get("/maps/:id/edit", (req, res) => {
     res.render("edit", templateVars);
   });
 });
+
 
 app.post("/maps", (req, res) => {
   knex('maps').returning("id").insert({
@@ -201,6 +217,32 @@ app.delete("/maps/:id", (req, res) => {
     });
   res.redirect("/maps");
 });
+
+app.get("/users/:id/maps/created", (req, res) => {
+  knex('maps')
+  .select('*')
+  .where('user_id', req.params.id).then((results) => {
+      res.json(results);
+  });
+});
+
+// app.get("users/:id/maps/favorited", (req, res) => {
+//   knex.select('*')
+//   .from('maps')
+//   .innerJoin('favorites', 'maps.id', 'map_id')
+//   .where('user_id', req.params.id).then((results) => {
+//       res.json(results);
+//   });
+// });
+
+// app.get("users/:id/maps/edited", (req, res) => {
+//   knex.select('*')
+//   .from('maps')
+//   .innerJoin('pins', 'user_id', 'user_id')
+//   .where('user_id', req.params.id).then((results) => {
+//       res.json(results);
+//   });
+// });
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);

@@ -1,6 +1,24 @@
 $(document).ready( function(){
 
-  initMap();
+     getCreatedMaps();
+
+    $(".btn-pref .btn").click(function () {
+    $(".btn-pref .btn").removeClass("btn-primary").addClass("btn-default");
+    // $(".tab").addClass("active"); // instead of this do the below
+    $(this).removeClass("btn-default").addClass("btn-primary");
+  });
+
+
+// $('#created').toggle();
+
+//   $('#favorited').on("click", function() {
+//     getFavoritedMaps();
+
+//   }
+
+//  $('#edited').on("click", function() {
+//     getEditedMaps();
+//   }
 
 });
 
@@ -10,8 +28,8 @@ function addMapsToPage(maps){
 
       center: {lat: 49.2827, lng: -123.1207},
       zoom: 13,
-      zoomControl: false,
-      scaleControl: false,
+      zoomControl: true,
+      scaleControl: true,
 
       //map type:
       mapTypeId: google.maps.MapTypeId.SATELLITE,
@@ -28,22 +46,16 @@ function addMapsToPage(maps){
       zoomControlOptions: {
         position: google.maps.ControlPosition.RIGHT_BOTTOM
       },
-
   }
 
   for(var key in maps){
 
-      console.log(maps[key]);
-
+      console.log(maps[key])
       var id = maps[key].id;
-
       var mapDiv = document.getElementById(`map-${id}`);
       var gmap = new google.maps.Map(mapDiv, mapOptions);
-
       getPins(gmap, maps[key]);
-
   }
-
 }
 
 function addPinsToMap(map, pins){
@@ -85,11 +97,22 @@ function getPins(gmap, map) {
 }
 
 
-function getMaps() {
+function getCreatedMaps() {
+
+  $.ajax({
+    method: 'GET',
+    url: '/users/' + $('body').data('userid') + '/maps/created',
+  }).done((results) => {
+
+    addMapsToPage(results);
+  });
+}
+
+function getEditedMaps() {
 
   $.ajax({
     method: "GET",
-    url: "/api/maps",
+    url: "users/" + $('body').getAttribute('userid') + "/maps/edited",
   }).done((results) => {
 
     addMapsToPage(results);
@@ -98,9 +121,12 @@ function getMaps() {
 }
 
 
+function getFavoritedMaps() {
 
-function initMap() {
-
-  getMaps();
-
+  $.ajax({
+    method: "GET",
+    url: "users/" + $('body').data('id') + "/maps/favorited",
+    }).done((results) => {
+    addMapsToPage(results);
+  });
 }

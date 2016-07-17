@@ -26,19 +26,27 @@
         <p> Please log in to create a map! </p>
         <% } %>
       </section>
-      <section id="all-maps">
+       <section id="all-maps">
         <% for (map of maps) { %>
         <article class="map">
           <header>
-           <h1 class="map title"> <%= map.title %></h1>
-           <h2 class="user"> <%= map.username %></h2>
+           <h1 class="text-center"> <%= map.title %></h1>
+           <div class="text-center">
            <a href='/maps/<%= map.map_id %>/edit'>Edit Map</a>
+           </div>
            </header>
            <div id="map-<%= map.map_id %>" class="map-id"> </div>
            <footer data-mapid= <%= map.map_id %> >
-             <span> Created <%= map.created_at %> by <%= map.name %> </span>
+            <!-- <form method="GET" action = '/users/:id'>
+             <span data-userid = <%= map.id %> class= "user-page" >  -->Created <%= map.created_at %> by <%= map.name %>  </span>
+            </form>
+            <!--   <% if (map.fav_map == map.map_id) { %>
              <p class= "glyphicon glyphicon-heart"> </p>
+             <% } else { %>
+             <p class= "glyphicon glyphicon-heart-empty"> </p>
+             <% } %> -->
            </footer>
+         
         </article>
         <% } %>
       </section>

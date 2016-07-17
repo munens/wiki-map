@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="stylesheet" href="/styles/nav.css" type="text/css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 <body>
@@ -13,8 +14,11 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav navbar-right">
      <% if (user_id) { %>
+        <form action="/users/<%=user_id%>/profile" method="GET">
+        <button class="btn btn-default" class="pull-left">Profile</button>
+        </form>
         <form action="/logout" method="POST">
-        <button>Logout</button>
+        <button class="btn btn-default" class="pull-right"> Logout</button>
         </form>
      <% } else { %>
         <li><a href="/login">Sign Up</a></li>
@@ -26,5 +30,3 @@
 </nav>
 </body>
 </html>
-
-

@@ -31,7 +31,10 @@ html, body {
 }
 
 .map-id:hover {
-	border: 4px solid #2B2D42;
+	
+  -moz-box-shadow:    3px 3px 5px 6px #ccc;
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  box-shadow:         3px 3px 5px 6px #ccc;
 
 }
 
@@ -41,40 +44,4 @@ html, body {
 	margin: 30px;
 }
 
-.title {
-	margin-left: -250px;
-	
-}
-
-.container {
-
-	display : flex;
-	flex-direction: row;
-	margin-left:-200px;
-}
-
-
-.container #article-edit{
-	height:100%;
-	float: left;
-	
-}
-
-
-.container #map-edit {
-	height: 750px;
-	width: 1250px;
-	margin-left: -300px;
-	border-radius: 32px;
-
-}
-
-.container #pin-types {
-	float: right;
-	
-	margin: 25px;
-	border : 1px solid #2B2D42; 
-	border-radius: 16px;
-	margin-top: 154px;
-}
 
