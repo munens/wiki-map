@@ -57,11 +57,11 @@ app.use((req, res, next) => {
 
 app.get("/maps", (req, res) => {
   knex.select('*',
-  'maps.id as map_id',
-  'favorites.map_id as fav_map')
+  'maps.id as map_id')
+  // 'favorites.map_id as fav_map')
   .from('maps')
   .innerJoin('users', 'users.id', 'maps.user_id')
-  .innerJoin('favorites', 'users.id', 'favorites.user_id')
+  // .innerJoin('favorites', 'users.id', 'favorites.user_id')
   .then((results) => {
     console.log(results);
   res.render("index", {maps: results, user_id: req.cookies["user_id"]});
@@ -225,14 +225,14 @@ app.get("/users/:id/maps/created", (req, res) => {
   });
 });
 
-app.get("/users/:id/maps/favorited", (req, res) => {
-  knex.select('*')
-  .from('maps')
-  .innerJoin('favorites', 'maps.id', 'map_id')
-  .where('user_id', req.params.id).then((results) => {
-      res.json(results);
-  });
-});
+// app.get("/users/:id/maps/favorited", (req, res) => {
+//   knex.select('*')
+//   .from('maps')
+//   .innerJoin('favorites', 'maps.id', 'map_id')
+//   .where('user_id', req.params.id).then((results) => {
+//       res.json(results);
+//   });
+// });
 
 app.get("/users/:id/maps/edited", (req, res) => {
   knex.select('*')
