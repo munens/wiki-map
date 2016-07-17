@@ -84,6 +84,7 @@ app.post("/login", (req, res) => {
   });
 });
 
+
 app.post("/favorites/:id", (req, res) => {
   knex('favorites').insert({
   'user_id': req.cookies["user_id"],
@@ -101,6 +102,13 @@ app.delete("/favorites/:id", (req, res) => {
   .then((results) => {
     res.json(results);
   });
+});
+
+app.delete("/maps/:id/pins/:pinid", (req, res) => {
+    knex('pins')
+    .where('id', req.params.pinid).del().then((resuts) => {
+      res.json(resuts);
+    });
 });
 
 app.post("/signup", (req, res) => {
@@ -121,7 +129,7 @@ app.post("/logout", (req, res) => {
   res.redirect("/login");
 });
 
-app.get("/user/:id", (req, res) => {
+app.get("/user", (req, res) => {
   knex.select('*')
   .from('users')
   .where('id', req.cookies["user_id"])
@@ -158,21 +166,23 @@ app.post("/maps", (req, res) => {
 });
 
 
-app.post("/maps/:id/pins", (req, res) => {
-  knex('pins').insert({
-    'title': req.body.title,
-    'description': req.body.description,
-    'latitude': req.body.latitude,
-    'longitude': req.body.longitude,
-    'map_id': req.params.id,
-    'pin_type': "create",
-    'original_pin_id': 0,
-    'user_id': req.cookies["user_id"]})
-    .then((results) => {
+// app.post("/maps/:id/pins", (req, res) => {
 
-  });
-     res.redirect("/maps");
-});
+//   knex('pins').insert({
+//     'title': req.body.title,
+//     'description': req.body.description,
+//     'latitude': req.body.latitude,
+//     'longitude': req.body.longitude,
+//     'map_id': req.params.id,
+//     'pin_type': "create",
+//     'original_pin_id': 0,
+//     'user_id': req.cookies["user_id"]})
+//     .then((results) => {
+
+//   });
+//      //res.redirect("/maps");
+
+// });
 
 // app.put("/maps/:id", (req, res) => {
 //   knex('maps')

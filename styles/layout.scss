@@ -30,6 +30,12 @@ html, body {
 
 }
 
+.map-id:hover {
+	border: 5px solid blue;
+
+}
+
+
 .map {
 	float:left;
 	margin: 30px;
@@ -44,8 +50,8 @@ html, body {
 
 
 #map-edit {
-	height: 800px;
-	width: 1200px;
-	border-radius: 60px;
+	height: 750px;
+	width: 1250px;
+	border-radius: 40px;
 }
 
