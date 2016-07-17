@@ -22,7 +22,8 @@
     <main class="container">
         <section id="create-edit-map">
         <article>
-          <% if (user_id === id) { %>
+
+          <% if (user_id == duser_id) { %>
             <form class="map-title" method="POST" action="/maps/<%=id%>?_method=PUT">
               <input class="title" value="<%=title%>" name= title> </input>
               <br>

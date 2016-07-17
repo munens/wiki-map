@@ -140,12 +140,12 @@ app.get("/user", (req, res) => {
 });
 
 app.get("/maps/:id/edit", (req, res) => {
-  knex.select('id','title').from('maps').where('id', req.params.id).then((results) => {
-    console.log(req.params);
-    console.log(results);
+  knex.select('id','title', 'user_id').from('maps').where('id', req.params.id).then((results) => {
+
     let templateVars = {
       id: results[0].id,
       title: results[0].title,
+      duser_id: results[0].user_id,
       user_id: req.cookies["user_id"]
     }
     res.render("edit", templateVars);

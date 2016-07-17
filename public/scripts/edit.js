@@ -129,6 +129,7 @@ function addPinAndWindow(map, mapid){
 
     $("#article-edit").on('click', ".btn.btn-info", function(event){
     	event.preventDefault();
+    	infowindow.close();
     	pinObj.title = $('.pin-title').val();
 		pinObj.description = $('.pin-description').val();	
 
@@ -136,7 +137,14 @@ function addPinAndWindow(map, mapid){
     		url: '/api/maps/' + mapid + '/pins',
     		method: 'POST',
     		data: pinObj,
-    		success: () => { }
+    		success: () => {
+    			console.log(pin)
+    			pin.infowindow.close();
+    			
+    				
+    		}
+    	}).done(()=>{
+    		pin.infowindow.close();
     	});
 
     });
