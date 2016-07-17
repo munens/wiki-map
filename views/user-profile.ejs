@@ -5,72 +5,66 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>User Page</title>
-     <link rel="stylesheet" href="/styles/profile-page.css" type="text/css" />
-      <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/profile-page.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/profile-page-maps.js"></script>
-
   </head>
+
   <body data-userid= <%=user_id%> >
     <nav id="nav-bar">
       <% include ./partials/_navbar.html %>
     </nav>
-   <!--  <form method="POST" action = '/logout'>
-      <input class="logout-button" type="submit" value="Logout">
-    </form> -->
     <main class="container">
-<div class="col-lg-6 col-sm-6">
-    <div class="card hovercard">
-        <div class="card-background">
+      <div class="col-lg-6 col-sm-6">
+        <div class="card hovercard">
+          <div class="card-background">
             <img class="card-bkimg" alt="" src="http://lorempixel.com/100/100/people/9/">
-        </div>
-        <div class="useravatar">
+          </div>
+          <div class="useravatar">
             <img alt="" src="/images/IMG_5119.jpg">
+          </div>
+          <div class="card-info"> <span class="card-title"> <%=users.name%></span>
+          </div>
         </div>
-        <div class="card-info"> <span class="card-title"> <%=users.name%></span>
-        </div>
-    </div>
-    <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
-        <div class="btn-group" role="group">
+        <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
+          <div class="btn-group" role="group">
             <button type="button" id="created" class="btn btn-primary" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
-                <div id="hidden-created" >Created
-                </div>
+              <div id="hidden-created" >Created</div>
             </button>
-        </div>
-        <div class="btn-group" role="group">
+          </div>
+          <div class="btn-group" role="group">
             <button type="button" id="favorites" class="btn btn-default" href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-                <div id="hidden-favorites">Favorites</div>
+              <div id="hidden-favorites">Favorites</div>
             </button>
-        </div>
-        <div class="btn-group" role="group">
+          </div>
+          <div class="btn-group" role="group">
             <button type="button" id="edited" class="btn btn-default" href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-                <div id="hidden-edited">Edited Maps</div>
+              <div id="hidden-edited">Edited Maps</div>
             </button>
+          </div>
         </div>
-    </div>
-
         <div class="well">
-      <div class="tab-content">
-        <div class="tab-pane fade in active" id="tab1">
-          <h3>This is tab 1</h3>
-          <div id="map-<%= users.map_id %>" class="map-id"> </div>
-        </div>
-        <div class="tab-pane fade in" id="tab2">
-          <h3>This is tab 2</h3>
-          <div id="map-<%= users.map_id %>" class="map-id"> </div>
-        </div>
-        <div class="tab-pane fade in" id="tab3">
-          <h3>This is tab 3</h3>
-          <div id="map-<%= users.map_id %>" class="map-id"> </div>
+          <div class="tab-content">
+            <div class="tab-pane fade in active" id="tab1">
+              <h3>This is tab 1</h3>
+                <div id="map-<%= users.map_id %>" class="map-id"> </div>
+            </div>
+            <div class="tab-pane fade in" id="tab2">
+              <h3>This is tab 2</h3>
+              <div id="map-<%= users.map_id %>" class="map-id"> </div>
+            </div>
+            <div class="tab-pane fade in" id="tab3">
+              <h3>This is tab 3</h3>
+              <div id="map-<%= users.map_id %>" class="map-id"> </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-
-    </div>
     </main>
-     <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYZBReykBLqLSONyWSUWycT_1csuRjJyY&region=CA">
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYZBReykBLqLSONyWSUWycT_1csuRjJyY&region=CA">
     </script>
   </body>
 </html>

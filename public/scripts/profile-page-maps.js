@@ -1,24 +1,35 @@
 $(document).ready( function(){
-  console.log("ready");
 
-    $(".btn-pref .btn").click(function () {
+  $("#tab1").hide();
+  $("#tab2").hide();
+  $("#tab3").hide();
+
+  getCreatedMaps();
+  getFavoritedMaps();
+  getEditedMaps();
+
+  $(".btn-pref .btn").click(function () {
     $(".btn-pref .btn").removeClass("btn-primary").addClass("btn-default");
-    // $(".tab").addClass("active"); // instead of this do the below
     $(this).removeClass("btn-default").addClass("btn-primary");
   });
 
-     getCreatedMaps();
+  $("#created").on("click", function () {
+    $("#tab2").hide();
+    $("#tab3").hide();
+    $("#tab1").toggle("slow");
+  }
 
-// $('#created').toggle();
+  $("#favorited").on("click", function () {
+    $("#tab1").hide();
+    $("#tab3").hide();
+    $("#tab2").toggle("slow");
+  }
 
-//   $('#favorited').on("click", function() {
-    getFavoritedMaps();
-
-//   }
-
-//  $('#edited').on("click", function() {
-    getEditedMaps();
-//   }
+  $("#edited").on("click", function () {
+    $("#tab1").hide();
+    $("#tab2").hide();
+    $("#tab3").toggle("slow");
+  }
 
 });
 
