@@ -1,8 +1,8 @@
 $(document).ready(function(){
-	
+
 	$.ajax({
 	method: 'GET',
-	url: '/api/maps/' + $('body').data('id') 
+	url: '/api/maps/' + $('body').data('id')
 	}).done((map) => {
 		initMap(map, $('body').data('id'))
 		console.log(map)
@@ -18,7 +18,7 @@ function addPinsToMap(gmap, map, pins){
 
     for(let key in pins){
 
-    	//debugger;			
+    	//debugger;
       let contentString = $('<div id="content">'+
 	                      	'<div id="siteNotice">'+
 	                      '</div>'+
@@ -36,7 +36,7 @@ function addPinsToMap(gmap, map, pins){
       let infowindow = new google.maps.InfoWindow({
       		content : contentString[0]
       });
-      
+
       let pin = new google.maps.Marker({
         position: {lat: pins[key].latitude, lng: pins[key].longitude},
         title: pins[key].title,
@@ -44,11 +44,11 @@ function addPinsToMap(gmap, map, pins){
       });
 
       //console.log(pins[key]);
-      
+
       pin.setMap(gmap);
 
       pin.addListener('click', function(event) {
-      	
+
       	infowindow.open(gmap, this);
       });
 
@@ -63,7 +63,7 @@ function addPinsToMap(gmap, map, pins){
 			console.log("Im happy");
 			getPins(gmap, map);
 			pin.setMap(null);
-			
+
 		});
       });
 
@@ -98,7 +98,7 @@ function addPinAndWindow(map, mapid){
 	            	 "</form>" +
 	            	 "<br>" +
 	            	 "<br>" +
-	            	 "<button class='btn btn-warning' type='submit'>Delete Pin</button>" + 
+	            	 "<button class='btn btn-warning' type='submit'>Delete Pin</button>" +
 	              "</article>"
 
   	var infowindow = new google.maps.InfoWindow();
@@ -110,12 +110,12 @@ function addPinAndWindow(map, mapid){
       label: labels[labelIndex++ % labels.length],
       map: map,
       draggable: true
-      
+
     });
 
-    
+
     var infowindow = new google.maps.InfoWindow({
-      	content : $panel,                     
+      	content : $panel,
     });
 
     pin.addListener('click', function() {
@@ -130,7 +130,7 @@ function addPinAndWindow(map, mapid){
     $("#article-edit").on('click', ".btn.btn-info", function(event){
     	event.preventDefault();
     	pinObj.title = $('.pin-title').val();
-		pinObj.description = $('.pin-description').val();	
+		pinObj.description = $('.pin-description').val();
 
     	$.ajax({
     		url: '/api/maps/' + mapid + '/pins',
@@ -144,10 +144,10 @@ function addPinAndWindow(map, mapid){
     $("#article-edit").on("click", ".btn.btn-warning", (event) => {
     	event.preventDefault();
     	pin.setMap(null);
-  	});	
+  	});
 
-	    
-    
+
+
   });
 
 };
@@ -179,7 +179,7 @@ function initMap(map, mapid){
       },
 
   }
-  
+
   var mapDiv = document.getElementById('map-edit');
   var gmap = new google.maps.Map(mapDiv, mapOptions);
   console.log(map)
