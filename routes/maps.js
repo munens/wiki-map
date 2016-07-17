@@ -15,6 +15,7 @@ module.exports = (knex) => {
   });
 
   router.put("/:id", (req, res) => {
+    
     knex('maps')
       .where('id', req.params.id)
       .update({
@@ -28,6 +29,10 @@ module.exports = (knex) => {
       
   router.post("/:id/pins", (req, res) => {
     console.log('post mapid pins');
+
+    console.log(req.body)
+
+
     knex('pins').insert({
       'title': req.body.title,
       'description': req.body.description,
@@ -43,7 +48,15 @@ module.exports = (knex) => {
 
   });
 
+  router.delete("/:id/pins/:pinid", (req, res) => {
+    console.log(req.params)
 
+    knex('pins')
+    .where('id', req.params.pinid).del().then((resuts) => {
+      res.json(resuts);
+    });
+
+  });
 
   router.get("/:id", (req, res) => {
   	knex
@@ -63,7 +76,7 @@ module.exports = (knex) => {
 
   });
 
-  /*******not used **************/
+  /************not used **************/
 
   router.get("/:id/pins/:pinid", (req, res) => {
   	knex
@@ -74,7 +87,7 @@ module.exports = (knex) => {
 
   });
 
-  /******************************/
+  /***********************************/
 
   return router;
 }

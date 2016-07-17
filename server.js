@@ -74,6 +74,14 @@ app.post("/login", (req, res) => {
   });
 });
 
+app.delete("/maps/:id/pins/:pinid", (req, res) => {
+    knex('pins')
+    .where('id', req.params.pinid).del().then((resuts) => {
+      res.json(resuts);
+    });
+
+});
+
 app.post("/signup", (req, res) => {
   knex('users').insert({
   'email': req.body.email,
