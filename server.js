@@ -121,7 +121,7 @@ app.post("/logout", (req, res) => {
   res.redirect("/login");
 });
 
-app.get("/user", (req, res) => {
+app.get("/user/:id", (req, res) => {
   knex.select('*')
   .from('users')
   .where('id', req.cookies["user_id"])
