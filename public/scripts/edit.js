@@ -65,10 +65,9 @@ function addPinsToMap(gmap, map, pins){
 			pin.setMap(null);
 			
 		});
-      });
+  });
 
-    }
-
+  }
 
 }
 
@@ -89,10 +88,10 @@ function addPinAndWindow(map, mapid){
     var $panel = "<article>" +
 	    			"<form method='POST' action='/api/maps/" + mapid + "/pins'" +
 	    				"<h4> Title </h4>" +
-	    			 		"<input class='pin-title' value='' name='title'></input>" +
+	    			 		"<input class='form-control title' value='' name='title'></input>" +
 	    			 		"<br>" +
 	    			 	"<h4> Description </h4>" +
-	    			 		"<textarea class='pin-description' value='' name= description> </textarea>" +
+	    			 		"<textarea class='form-control description' rows='3' value='' name= description> </textarea>" +
 	    			 		"<br><br>" +
 	    			 	"<button class='btn btn-info' type='submit'>Click here to create new pin</button> " +
 	            	 "</form>" +
@@ -130,8 +129,8 @@ function addPinAndWindow(map, mapid){
     $("#article-edit").on('click', ".btn.btn-info", function(event){
     	event.preventDefault();
     	infowindow.close();
-    	pinObj.title = $('.pin-title').val();
-		pinObj.description = $('.pin-description').val();	
+    	pinObj.title = $('.form-control.title').val();
+		  pinObj.description = $('.form-control.description').val();	
 
     	$.ajax({
     		url: '/api/maps/' + mapid + '/pins',
@@ -140,8 +139,6 @@ function addPinAndWindow(map, mapid){
     		success: () => {
     			console.log(pin)
     			pin.infowindow.close();
-    			
-    				
     		}
     	}).done(()=>{
     		pin.infowindow.close();
@@ -152,9 +149,7 @@ function addPinAndWindow(map, mapid){
     $("#article-edit").on("click", ".btn.btn-warning", (event) => {
     	event.preventDefault();
     	pin.setMap(null);
-  	});	
-
-	    
+  	});	    
     
   });
 

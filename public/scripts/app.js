@@ -10,21 +10,21 @@ function addMapsToPage(maps){
 
       center: {lat: 49.2827, lng: -123.1207},
       zoom: 13,
-      zoomControl: true,
-      scaleControl: true,
+      zoomControl: false,
+      scaleControl: false,
 
       //map type:
       mapTypeId: google.maps.MapTypeId.SATELLITE,
 
       // map type controls:
-      mapTypeControl: true,
+      mapTypeControl: false,
       mapTypeControlOptions: {
         style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
         position: google.maps.ControlPosition.TOP_CENTER
       },
 
       //map zoom controls:
-      zoomControl: true,
+      zoomControl: false,
       zoomControlOptions: {
         position: google.maps.ControlPosition.RIGHT_BOTTOM
       },
