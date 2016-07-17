@@ -13,15 +13,15 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav navbar-right">
      <% if (user_id) { %>
-        <form action="/users/<%=user_id%>/profile" method="GET">
-        <button class="btn btn-default" class="pull-left">Profile</button>
+        <li><form action="/users/<%=user_id%>/profile" method="GET">
+        <button class="btn btn-default" class="pull-left">Profile</button></li>
         </form>
-        <form action="/logout" method="POST">
-        <button class="btn btn-default" class="pull-right"> Logout</button>
+        <li><form action="/logout" method="POST">
+        <button class="btn btn-default" class="pull-right"> Logout</button></li>
         </form>
      <% } else { %>
-        <li><a href="/login">Sign Up</a></li>
-        <li><a href="/login">Login</a></li>
+        <li><a class="btn btn-default" href="/login">Sign Up</a></li>
+        <li><a class="btn btn-default" href="/login">Login</a></li>
      <% } %>
       </ul>
     </div><!-- /.navbar-collapse -->

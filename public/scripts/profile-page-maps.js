@@ -1,6 +1,5 @@
 $(document).ready( function(){
-
-     getCreatedMaps();
+  console.log("ready");
 
     $(".btn-pref .btn").click(function () {
     $(".btn-pref .btn").removeClass("btn-primary").addClass("btn-default");
@@ -8,6 +7,7 @@ $(document).ready( function(){
     $(this).removeClass("btn-default").addClass("btn-primary");
   });
 
+     getCreatedMaps();
 
 // $('#created').toggle();
 

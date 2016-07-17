@@ -217,7 +217,7 @@ app.delete("/maps/:id", (req, res) => {
   res.redirect("/maps");
 });
 
-app.get("users/:id/maps/created", (req, res) => {
+app.get("/users/:id/maps/created", (req, res) => {
   knex('maps')
   .select('*')
   .where('user_id', req.params.id).then((results) => {
