@@ -2,6 +2,7 @@ $(document).ready(function() {
 
   $(".glyphicon.glyphicon-heart").on("click", function(event) {
     event.preventDefault();
+    console.log($(this));
     let favoritedItem = $(this).serialize();
     console.log(favoritedItem);
     if ($(this).hasClass("favorited")) {
@@ -11,7 +12,7 @@ $(document).ready(function() {
         dataType: "json",
         method: 'DELETE',
         success: function() {
-          $(this).removeClass("favorited")
+          $(".glyphicon.glyphicon-heart").removeClass("favorited")
         }
       });
     } else {
@@ -21,7 +22,7 @@ $(document).ready(function() {
         data: favoritedItem,
         dataType: "json",
         success: function() {
-          $(this).addClass("favorited")
+          $(".glyphicon.glyphicon-heart").addClass("favorited")
         }
       });
     }
