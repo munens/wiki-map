@@ -12,12 +12,12 @@ $(document).ready( function(){
 // $('#created').toggle();
 
 //   $('#favorited').on("click", function() {
-//     getFavoritedMaps();
+    getFavoritedMaps();
 
 //   }
 
 //  $('#edited').on("click", function() {
-//     getEditedMaps();
+    getEditedMaps();
 //   }
 
 });
@@ -109,7 +109,7 @@ function getEditedMaps() {
 
   $.ajax({
     method: "GET",
-    url: "users/" + $('body').getAttribute('userid') + "/maps/edited",
+    url: "users/" + $('body').attr('data-userid') + "/maps/edited",
   }).done((results) => {
 
     addMapsToPage(results);
@@ -122,7 +122,7 @@ function getFavoritedMaps() {
 
   $.ajax({
     method: "GET",
-    url: "users/" + $('body').data('id') + "/maps/favorited",
+    url: "users/" + $('body').attr('data-userid') + "/maps/favorited",
     }).done((results) => {
     addMapsToPage(results);
   });
