@@ -14,10 +14,10 @@
     <ul class="nav navbar-nav navbar-right">
      <% if (user_id) { %>
         <form action="/users/<%=user_id%>/profile" method="GET">
-        <button>Profile</button>
+        <button class="btn btn-default" class="pull-left">Profile</button>
         </form>
         <form action="/logout" method="POST">
-        <button>Logout</button>
+        <button class="btn btn-default" class="pull-right"> Logout</button>
         </form>
      <% } else { %>
         <li><a href="/login">Sign Up</a></li>
