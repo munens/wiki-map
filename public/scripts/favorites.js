@@ -3,14 +3,15 @@ $(document).ready(function() {
   $("footer").on("click", ".glyphicon-heart-empty", function(event) {
     event.preventDefault();
     let favoritedItem = $(this).serialize();
+    let item = this;
       $.ajax({
         url: '/favorites/' + $('footer').data('mapid'),
         method: 'POST',
         data: favoritedItem,
         dataType: "json",
         success: function() {
-          $(".glyphicon.glyphicon-heart-empty").removeClass("glyphicon-heart-empty")
-          $(".glyphicon").addClass("glyphicon-heart")
+          $(item).removeClass("glyphicon-heart-empty")
+          $(item).addClass("glyphicon-heart")
         }
       });
     });
@@ -24,8 +25,8 @@ $(document).ready(function() {
         dataType: "json",
         method: 'DELETE',
         success: function() {
-          $(".glyphicon.glyphicon-heart").removeClass("glyphicon-heart");
-          $(".glyphicon").addClass("glyphicon-heart-empty")
+          $(item).removeClass("glyphicon-heart");
+          $(item).addClass("glyphicon-heart-empty")
         }
       });
     });
