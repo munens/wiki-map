@@ -1,24 +1,32 @@
 $(document).ready( function(){
 
-     getCreatedMaps();
 
-    $(".btn-pref .btn").click(function () {
+  getCreatedMaps();
+  // getFavoritedMaps();
+  getEditedMaps();
+
+  $(".btn-pref .btn").click(function () {
     $(".btn-pref .btn").removeClass("btn-primary").addClass("btn-default");
-    // $(".tab").addClass("active"); // instead of this do the below
     $(this).removeClass("btn-default").addClass("btn-primary");
   });
 
+  $("#created").on("click", function () {
+    $("#tab2").hide();
+    $("#tab3").hide();
+    $("#tab1").toggle("slow");
+  });
 
-// $('#created').toggle();
+  $("#favorites").on("click", function () {
+    $("#tab1").hide();
+    $("#tab3").hide();
+    $("#tab2").toggle("slow");
+  });
 
-//   $('#favorited').on("click", function() {
-//     getFavoritedMaps();
-
-//   }
-
-//  $('#edited').on("click", function() {
-//     getEditedMaps();
-//   }
+  $("#edited").on("click", function () {
+    $("#tab1").hide();
+    $("#tab2").hide();
+    $("#tab3").toggle("slow");
+  });
 
 });
 
@@ -112,7 +120,7 @@ function getEditedMaps() {
 
   $.ajax({
     method: "GET",
-    url: "users/" + $('body').getAttribute('userid') + "/maps/edited",
+    url: "/users/" + $('body').attr('data-userid') + "/maps/edited",
   }).done((results) => {
 
     addMapsToPage(results);
@@ -121,12 +129,12 @@ function getEditedMaps() {
 }
 
 
-function getFavoritedMaps() {
+// function getFavoritedMaps() {
 
-  $.ajax({
-    method: "GET",
-    url: "users/" + $('body').data('id') + "/maps/favorited",
-    }).done((results) => {
-    addMapsToPage(results);
-  });
-}
+//   $.ajax({
+//     method: "GET",
+//     url: "users/" + $('body').attr('data-userid') + "/maps/favorited",
+//     }).done((results) => {
+//     addMapsToPage(results);
+//   });
+// }

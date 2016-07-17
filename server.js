@@ -226,7 +226,7 @@ app.get("/users/:id/maps/created", (req, res) => {
   });
 });
 
-// app.get("users/:id/maps/favorited", (req, res) => {
+// app.get("/users/:id/maps/favorited", (req, res) => {
 //   knex.select('*')
 //   .from('maps')
 //   .innerJoin('favorites', 'maps.id', 'map_id')
@@ -235,14 +235,14 @@ app.get("/users/:id/maps/created", (req, res) => {
 //   });
 // });
 
-// app.get("users/:id/maps/edited", (req, res) => {
-//   knex.select('*')
-//   .from('maps')
-//   .innerJoin('pins', 'user_id', 'user_id')
-//   .where('user_id', req.params.id).then((results) => {
-//       res.json(results);
-//   });
-// });
+app.get("/users/:id/maps/edited", (req, res) => {
+  knex.select('*')
+  .from('maps')
+  .innerJoin('pins', 'user_id', 'user_id')
+  .where('user_id', req.params.id).then((results) => {
+      res.json(results);
+  });
+});
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
