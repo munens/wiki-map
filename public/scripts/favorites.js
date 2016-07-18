@@ -1,5 +1,13 @@
 $(document).ready(function() {
 
+ $.ajax({
+      url: '/favorites',
+      method: 'GET',
+      success: function(){
+        console.log("success!")
+      }
+  });
+
   $("footer").on("click", ".glyphicon-heart-empty", function(event) {
     event.preventDefault();
     let favoritedItem = $(this).serialize();

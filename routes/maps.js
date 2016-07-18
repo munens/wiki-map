@@ -15,7 +15,6 @@ module.exports = (knex) => {
   });
 
   router.put("/:id", (req, res) => {
-    
     knex('maps')
       .where('id', req.params.id)
       .update({
@@ -24,9 +23,8 @@ module.exports = (knex) => {
       .then((results) => {
         res.json(results);
     });
-
   });
-      
+
   router.post("/:id/pins", (req, res) => {
     console.log('post mapid pins');
 
