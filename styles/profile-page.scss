@@ -87,3 +87,11 @@
 .col-lg-6.col-sm-6 {
   width: 100%;
 }
+
+#tab2 {
+    display: block !important;
+    position: absolute !important;
+    left: -10000px !important;
+    top: -10000px !important;
+    background-color: green;
+}

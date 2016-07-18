@@ -5,6 +5,7 @@ $(document).ready( function(){
   // getFavoritedMaps();
   getEditedMaps();
 
+
   $(".btn-pref .btn").click(function () {
     $(".btn-pref .btn").removeClass("btn-primary").addClass("btn-default");
     $(this).removeClass("btn-default").addClass("btn-primary");
@@ -23,6 +24,7 @@ $(document).ready( function(){
   });
 
   $("#edited").on("click", function () {
+    google.maps.event.trigger(map, 'resize');
     $("#tab1").hide();
     $("#tab2").hide();
 

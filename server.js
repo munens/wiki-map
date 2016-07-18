@@ -226,6 +226,10 @@ app.get("/users/:id/maps/created", (req, res) => {
 //   });
 // });
 
+app.get("/test", (req, res) => {
+  res.render("test");
+});
+
 app.get("/users/:id/profile", (req, res) => {
   knex.select('*', 'maps.id as map_id')
   .from('users')
