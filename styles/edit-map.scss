@@ -1,7 +1,54 @@
+#create-edit-map {
+
+	margin-left: -200px;
+	margin-bottom: 15px;
+}
+
 #create-edit-map .title {
   font-size: 3em;
   font-weight: bold;
   border: none;
   width: 100%;
+
 }
 
+body {
+	background-image:  url(https://s3-us-west-2.amazonaws.com/coverr/poster/Traffic-blurred2.jpg);
+}
+
+.container #article-edit{
+	height:100%;
+	display: flex;
+	
+}
+
+.pin-info {
+	width : 250px;
+	height : 300px;
+
+
+}
+
+
+.container #article-edit #map-edit {
+	height: 750px;
+	width: 1250px;
+	margin-left: -300px;
+	border-radius: 32px;
+	border: 2px #2B2d42;
+	-moz-box-shadow:    inset 0 0 10px #2B2d42;
+  	-webkit-box-shadow: inset 0 0 10px #2B2d42;
+  	box-shadow:         inset 0 0 10px #2B2d42;
+}
+
+.container #article-edit #map-edit:hover {
+	-moz-box-shadow:    3px 3px 6px 9px #2B2d42;
+  	-webkit-box-shadow: 3px 3px 6px 9px #2B2d42;
+  	box-shadow:         3px 3px 6px 9px #2B2d42;
+	
+}
+
+.container #article-edit #pin-table-items {
+	width : 500px;
+	margin: 20px;
+}

@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Map.it Home Page</title>
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
     <link rel="stylesheet" href="/styles/navbar.css" type="text/css" />
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
@@ -18,7 +20,7 @@
       <% include ./partials/_navbar.html %>
     </nav>
     <main class="container">
-      <section class="center">
+      <section class="new-map">
       <% if (user_id) { %>
         <form method="POST" action = '/maps'>
           <input class="btn btn-info" type="submit" value="Create New Map">
@@ -27,7 +29,7 @@
         <p> Please log in to create a map! </p>
         <% } %>
       </section>
-      <section id="all-maps">
+       <section id="all-maps">
         <% for (map of maps) { %>
         <article class="map">
           <header>
@@ -46,6 +48,7 @@
              <p class= "glyphicon glyphicon-heart-empty"> </p>
              <% } %>
            </footer>
+
         </article>
         <% } %>
       </section>

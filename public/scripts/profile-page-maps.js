@@ -58,7 +58,10 @@ function addMapsToPage(maps){
         position: google.maps.ControlPosition.RIGHT_BOTTOM
       },
   }
+
   for(var key in maps){
+
+      console.log(maps[key])
       var id = maps[key].id;
       var mapDiv = document.getElementById(`map-${id}`);
       var gmap = new google.maps.Map(mapDiv, mapOptions);
@@ -109,7 +112,7 @@ function getCreatedMaps() {
 
   $.ajax({
     method: 'GET',
-    url: '/users/' + $('body').attr('data-userid') + '/maps/created',
+    url: '/users/' + $('body').data('userid') + '/maps/created',
   }).done((results) => {
 
     addMapsToPage(results);

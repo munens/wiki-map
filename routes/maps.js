@@ -38,6 +38,7 @@ module.exports = (knex) => {
       'longitude': req.body.longitude,
       'map_id': req.params.id,
       'pin_type': "create",
+      'group' : req.body.group,
       'original_pin_id': 0,
       'user_id': req.cookies["user_id"]})
       .then((results) => {
@@ -50,8 +51,8 @@ module.exports = (knex) => {
     console.log(req.params)
 
     knex('pins')
-    .where('id', req.params.pinid).del().then((resuts) => {
-      res.json(resuts);
+    .where('id', req.params.pinid).del().then((results) => {
+      res.json(results);
     });
 
   });

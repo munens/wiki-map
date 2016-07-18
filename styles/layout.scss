@@ -31,7 +31,10 @@ html, body {
 }
 
 .map-id:hover {
-	border: 5px solid blue;
+	
+  -moz-box-shadow:    3px 3px 5px 6px #ccc;
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  box-shadow:         3px 3px 5px 6px #ccc;
 
 }
 
@@ -41,25 +44,7 @@ html, body {
 	margin: 30px;
 }
 
-
-
-#article-edit{
-	height:100%;
-	float: right;
-}
-
-
-#map-edit {
-	height: 750px;
-	width: 1250px;
-	border-radius: 40px;
-}
-
-.glyphicon.gyphicon-heart.favorited {
-  color: red;
-}
-
-.glyphicon.gyphicon-heart {
-  color: blue;
+.btn.btn-default {
+  margin: 5px;
 }
 

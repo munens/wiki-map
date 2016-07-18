@@ -62,10 +62,10 @@ app.get("")
 app.get("/maps", (req, res) => {
   knex.select('*',
   'maps.id as map_id')
-  // 'favorites.map_id as fav_map')
+  //'favorites.map_id as fav_map')
   .from('maps')
   .innerJoin('users', 'users.id', 'maps.user_id')
-  // .innerJoin('favorites', 'users.id', 'favorites.user_id')
+  //.innerJoin('favorites', 'users.id', 'favorites.user_id')
   .then((results) => {
   res.render("index", {maps: results, user_id: req.cookies["user_id"]});
   });
