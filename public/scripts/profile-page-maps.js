@@ -25,6 +25,7 @@ $(document).ready( function(){
   $("#edited").on("click", function () {
     $("#tab1").hide();
     $("#tab2").hide();
+
     $("#tab3").toggle("slow");
   });
 
@@ -114,7 +115,6 @@ function getCreatedMaps() {
 }
 
 function getEditedMaps() {
-
   $.ajax({
     method: "GET",
     url: "/users/" + $('body').attr('data-userid') + "/maps/edited",

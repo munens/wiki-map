@@ -133,15 +133,7 @@ app.post("/logout", (req, res) => {
   res.redirect("/login");
 });
 
-app.get("/users/:id/profile", (req, res) => {
-  knex.select('*', 'maps.id as map_id')
-  .from('users')
-  .innerJoin('maps', 'users.id', 'maps.user_id')
-  .where('users.id', req.cookies["user_id"])
-  .then((results) => {
-  res.render("user-profile", {users: results[0], user_id: req.cookies["user_id"]})
-  });
-});
+
 
 app.get("/users/:id", (req, res) => {
   knex.select('*')
@@ -234,12 +226,43 @@ app.get("/users/:id/maps/created", (req, res) => {
 //   });
 // });
 
+app.get("/users/:id/profile", (req, res) => {
+  knex.select('*', 'maps.id as map_id')
+  .from('users')
+  .innerJoin('maps', 'users.id', 'maps.user_id')
+  .where('users.id', req.cookies["user_id"])
+  .then((results) => {
+  res.render("user-profile", {users: results[0], user_id: req.cookies["user_id"]})
+  });
+});
+
+///ensure that when user page tries to display the #
+///of maps that a user has edited, the same mapid
+///is not fetched multiple times
+
+function unique (arr) {
+  let firstresults = [];
+  let secondresults = [];
+  for (let item of arr) {
+   if (firstresults.indexOf(item["map_id"]) === -1)  {
+        firstresults.push(item["map_id"]);
+   }
+  }
+  for (let mapid of firstresults) {
+    let emptyObject = {}
+    emptyObject["map_id"] = mapid;
+    secondresults.push(emptyObject);
+  }
+  return secondresults;
+}
+
 app.get("/users/:id/maps/edited", (req, res) => {
-  knex.select('*')
-  .from('maps')
-  .innerJoin('pins', 'user_id', 'user_id')
-  .where('user_id', req.params.id).then((results) => {
-      res.json(results);
+  knex.select('pins.map_id')
+  .from('pins')
+  .where('pins.user_id', req.cookies["user_id"]).then((results) => {
+    let uniquemapID = unique(results);
+    console.log(uniquemapID);
+      res.json(uniquemapID);
   });
 });
 
