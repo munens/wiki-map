@@ -10,29 +10,29 @@
 
     <link rel="stylesheet" href="/styles/edit-map.css" type="text/css" />
 
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/edit.js"></script>
     <script type="text/javascript" src="/scripts/map-title.js"></script>
   </head>
-  <body data-id= <%=id%> >
+  <body data-id= <%=result.id%> >
      <nav id="nav-bar">
       <% include ./partials/_navbar.html %>
     </nav>
     <main class="container">
-
-        <section id="create-edit-map">    
-          <% if (user_id == duser_id) { %>
-            <form class="map-title" method="POST" action="/maps/<%=id%>?_method=PUT">
-              <input class="title" value="<%=title%>" name= title> </input>
+        <section id="create-edit-map">
+    
+          <% if (user_id == result.duser_id) { %>
+            <form class="map-title" method="POST" action="/maps/<%=result.id%>?_method=PUT">
+              <input class="title" value="<%=result.title%>" name= title> </input>
               <br>
             <button class="btn btn-info" type="submit">Click here to Update Title</button>
             </form>
-            <form method="POST" action="/maps/<%=id%>?_method=DELETE">
+            <form method="POST" action="/maps/<%=result.id%>?_method=DELETE">
             <button class="btn btn-warning" type="submit">Click here to Delete Map</button>
             </form>
           <% } else {%>
-          <h2> <%=title%> </h2>
+          <h2> <%=result.title%> </h2>
           <% } %>
         </section> 
 
@@ -41,11 +41,15 @@
 
         <article id="article-edit">
             <div id='map-edit'></div>
-    
+            
             <table class='col-md-8' id='pin-table-items'>
+              <% for (pin in result) { %>
               <tr>
+              
                   <td><button type="button" class='list-group-item'><h3>Restaurants</h3></button></td>
-                  <td></td>
+                  
+                  <td><%= result[pin].title %></td>
+                  
               </tr>
               <tr>
                   <td><button type="button" class='list-group-item'><h3>Bars</h3></button></td>
@@ -58,7 +62,9 @@
                   <td><button type="button" class='list-group-item'><h3>Malls</h3></button></td>
                   <td></td>
               </tr>
+              <% } %>
             </table>
+          
         </article>
 
     </main>

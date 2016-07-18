@@ -51,9 +51,15 @@ function addPinsToMap(map, pins){
 
     for (var key in pins){
 
+
+      var image = typeOfPin(pins[key]);
+
       var pin = new google.maps.Marker({
         position: {lat: pins[key].latitude, lng: pins[key].longitude},
-        title: pins[key].title
+        title: pins[key].title,
+        draggable: false,
+        animation: google.maps.Animation.DROP,
+        icon: image
       });
 
       pin.setMap(map);
@@ -61,7 +67,33 @@ function addPinsToMap(map, pins){
 
 }
 
+function typeOfPin(pin){
+  
+  let resturant = 'http://icons.iconarchive.com/icons/graphicloads/colorful-long-shadow/48/Restaurant-icon.png';
+  let bar = 'http://icons.iconarchive.com/icons/graphicloads/food-drink/48/drink-3-icon.png';
+  let home = 'http://icons.iconarchive.com/icons/double-j-design/origami-colored-pencil/48/red-home-icon.png';
+  let shop = 'http://icons.iconarchive.com/icons/uiconstock/50-free-christmas/48/shopping-2-icon.png'
+  let otherHome = 'http://icons.iconarchive.com/icons/double-j-design/origami-colored-pencil/48/blue-home-icon.png'
+  let other = 'http://icons.iconarchive.com/icons/pelfusion/long-shadow-media/48/Maps-Pin-Place-icon.png'
+
+  if(pin.group == 'Restaurant'){
+    return resturant;
+  } else if (pin.group == 'Bar') {
+    return bar;
+  } else if (pin.group == 'Home'){
+    return home;
+  } else if (pin.group == 'Shop'){
+    return shop;
+  } else if (pin.group == 'Other user'){
+    return otherHome;
+  } else {
+    return other;
+  }
+
+};
+
 function getUsers(){
+
   $.ajax({
     method: "GET",
     url: "/api/users"
@@ -70,6 +102,7 @@ function getUsers(){
       $("<div>").text(user.name).appendTo($("body"));
     }
   });
+
 }
 
 
