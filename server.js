@@ -64,22 +64,23 @@ app.get("/maps", (req, res) => {
   'maps.id as map_id')
   //'favorites.map_id as fav_map')
   .from('maps')
-  .innerJoin('users', 'users.id', 'maps.user_id')
-  //.innerJoin('favorites', 'users.id', 'favorites.user_id')
+  // .outerJoin('favorites', 'users.id', 'user_id')
   .then((results) => {
+    console.log(results);
   res.render("index", {maps: results, user_id: req.cookies["user_id"]});
   });
 });
 
-app.get("/favorites", (req, res) => {
-  console.log("at favorites");
-  knex.select('*')
-  .from('favorites')
-  .then((results) => {
-    console.log(results);
-  res.render("index", {favorites: results, user_id: req.cookies["user_id"]});
-  });
-});
+// app.get("/favorites", (req, res) => {
+//   console.log("at favorites");
+//   knex.select('*')
+//   .from('maps')
+//   .innerJoin('favorites', 'maps.id', 'favorites.map_id')
+//   .then((results) => {
+//     console.log(results);
+//   res.render("index", {maps: results, user_id: req.cookies["user_id"]});
+//   });
+// });
 
 app.get("/login", (req, res) => {
   res.render("login", {user_id: req.cookies["user_id"]})
