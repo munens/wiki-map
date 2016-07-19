@@ -8,14 +8,16 @@ $(document).ready(function(){
     console.log(map)
   });
 
-})
+});
+
+let pins = [];
 
 function addPinsToMap(gmap, map, pins){
 
 
 //  '<p>Attribution:'+ pins[key].title +" </p> <a href='" + pins[key].url +'>'+ pins[key].url + '</a> '+
 //                        '<p>(last visitd June 22, 2009).</p>'+
-
+    
     for(let key in pins){
 
       //debugger;     
@@ -28,24 +30,6 @@ function addPinsToMap(gmap, map, pins){
             "</form>" +
           "</div>" +
       "</div>");
-
-      
-
-      // '<div id="content">'+
-      //                     '<div id="siteNotice">'+
-      //                   '</div>'+
-      //                   '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
-      //                   '<div id="bodyContent">'+
-      //                     "<img src='https://s-media-cache-ak0.pinimg.com/564x/f3/c5/08/f3c508ea5071061c9d90d9f49fdc3c13.jpg'>" +
-      //                     '<p>' + pins[key].description + '</p>'+
-      //                   '</div>'+
-      //                   "<div class='delete-pin' data-mapid='" + map.id + "' data-pinid='" + pins[key].id +"' >" +
-      //                   "<form method='POST' action='/api/maps/" + map.id + "/pins/" + pins[key].id + "?_method=DELETE'>" +
-      //                     "<button class='btn btn-danger' type='submit'>Delete Pin</button>" +
-      //                   "</form>" +
-      //                   "</div>"
-
-
 
       let infowindow = new google.maps.InfoWindow({
           content : contentString[0]
@@ -61,6 +45,9 @@ function addPinsToMap(gmap, map, pins){
         icon: image
       });
 
+      addToTable(pins[key]);
+
+      pins.push(pin);
       //console.log(pins[key]);
       
       pin.setMap(gmap);
@@ -71,24 +58,69 @@ function addPinsToMap(gmap, map, pins){
       });
 
       contentString.on('click', '.btn.btn-danger', (event) => {
-        event.preventDefault();
-        console.log($('.delete-pin').data('pinid'));
+      event.preventDefault();
+      console.log($('.delete-pin').data('pinid'));
       console.log($('.delete-pin').data('mapid'));
-    $.ajax({
-      method: 'DELETE',
-      url: '/api/maps/' + $('.delete-pin').data('mapid')  + '/pins/' + $('.delete-pin').data('pinid'),
-      success: () => {  }
-    }).done(() => {
-      console.log("Im happy");
-      getPins(gmap, map);
-      pin.setMap(null);
-      
-    });
+
+        $.ajax({
+          method: 'DELETE',
+          url: '/api/maps/' + $('.delete-pin').data('mapid')  + '/pins/' + $('.delete-pin').data('pinid'),
+          success: () => {  }
+        }).done(() => {
+          
+          setMapOnAll(null);
+          pins = [];
+          
+          getPins(gmap, map);
+          pin.setMap(null);
+          
+        });
       });
 
     }
 
+    console.log(pins)
 
+}
+
+function addToTable(pin){
+  if(pin.group == 'Restaurant'){
+
+    let $pin = "<button id=" + pin.id + " data-map-id=" + pin.map_id + " id='restaurant' data-id=" + pin.id + " class='list-group-item'>" + pin.title + "</button>"
+    $('#pin-restaurant').append($($pin));
+
+  } else if (pin.group == 'Bar') {
+
+    let $pin = "<button data-map-id=" + pin.map_id + " data-id=" + pin.id + " class='list-group-item'>" + pin.title + "</button>"
+    $('#pin-bar').append($($pin));
+
+  } else if (pin.group == 'Home'){
+    
+    let $pin = "<button data-map-id=" + pin.map_id + " data-id=" + pin.id + " class='list-group-item'>" + pin.title + "</button>"
+    $('#pin-home').append($($pin));
+
+  } else if (pin.group == 'Shop'){
+
+    let $pin = "<button data-map-id="+ pin.map_id + " data-id=" + pin.id + " class='list-group-item'>" + pin.title + "</button>"
+    $('#pin-shop').append($($pin));
+    
+  } else if (pin.group == 'Other user'){
+
+    let $pin = "<button data-map-id=" + pin.map_id + " data-id=" + pin.id + " class='list-group-item'>" + pin.title + "</button>"
+    $('#pin-other-user').append($($pin));
+    
+  } else {
+    
+    let $pin = "<button data-map-id=" + pin.map_id + " data-id=" + pin.id + " class='list-group-item'>" + pin.title + "</button>"
+    $('#pin-other').append($($pin));
+  }
+}
+
+
+function setMapOnAll(map) {
+  for (var i = 0; i < pins.length; i++) {
+    pins[i].setMap(map);
+  }
 }
 
 function typeOfPin(pin){
@@ -118,6 +150,9 @@ function typeOfPin(pin){
 
 function getPins(gmap, map) {
   console.log(map)
+  setMapOnAll(null);
+  pins = [];
+  
   $.ajax({
     method: "GET",
     url: "/api/maps/"+ map.id + "/pins",
@@ -196,27 +231,31 @@ function addPinAndWindow(gmap, map, mapid){
       pinObj.description = $('.pin-description').val(); 
 
      
-      console.log("jesus", gmap, map);
-
+      console.log(" 1 , jesus", gmap, map);
+      
       infowindow.close();
+      
       $.ajax({
         url: '/api/maps/' + mapid + '/pins',
         method: 'POST',
         data: pinObj,
         success: () => {  }
       }).done(() => {
-        console.log("jesus", gmap, map);
+        
+
+
         getPins(gmap, map);
       });
-
+        setMapOnAll(null);
+        pins = [];
+        event.preventDefault();
+       getPins(gmap, map);
     });
 
     $("#article-edit").on("click", ".btn.btn-warning", (event) => {
       event.preventDefault();
       pin.setMap(null);
-    }); 
-
-      
+    });      
     
   });
 
@@ -255,6 +294,50 @@ function initMap(map, mapid){
   console.log(map)
   getPins(gmap, map);
   addPinAndWindow(gmap, map, mapid);
+
+  // $("<div class='list-group'>" +
+  //   "<a href='#' class='list-group-item'>Restaurant</a>" +
+  //   "<a href='#' class='list-group-item'>Bars</a>" +
+  //   "<a href='#' class='list-group-item'>Home</a>" +
+  //   "<a href='#' class='list-group-item'>Other users</a>" +
+  //   "<a href='#' class='list-group-item'>Other</a>" +
+  //   "</div>").appendTo('#article-edit');
+
+
+
+
+  $('.list-group').on('click', ".list-group-item", (event) => {
+      console.log($('.list-group-item').data('id'));
+      console.log(event);
+
+       // $.ajax({
+       //    method: "GET",
+       //    url: "/api/maps/"+ map.id + "/pins",
+       //  }).done((results) => {
+       //    for(var key in results){
+       //      if(results[key].id == )
+       //    }
+       //  });
+
+
+
+
+  })
+
+  $('.container').on('click', '.list-group-item', (event) => {
+    console.log($('#resturant').data('id'));
+
+  })
+
+  // $("button[data-mapid=" + mapid + "]").on('click', (event) => {
+
+  //   console.log($('button').data('id'));
+  // })
+
+
+
+  //gmap.map.setCenter(new google.maps.LatLng( 45, 19 ) );
+
 
 }
 

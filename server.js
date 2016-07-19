@@ -161,33 +161,30 @@ app.get("/users/:id", (req, res) => {
 
 // app.get("/maps/:id/edit", (req, res) => {
 //   knex.select('id','title', 'user_id').from('maps').where('id', req.params.id).then((results) => {
+//     console.log(results);
 //     let templateVars = {
 //       id: results[0].id,
 //       title: results[0].title,
 //       duser_id: results[0].user_id,
 //       user_id: req.cookies["user_id"]
 //     }
+//     console.log()
 //     res.render("edit", templateVars);
 //   });
 // });
 
+
 app.get("/maps/:id/edit", (req, res) => {
- knex.select('*', 'pins.user_id as duser_id')
-    .from('pins')
-    .innerJoin('maps', 'maps.id', 'pins.map_id')
-    .where('map_id', req.params.id)
-    .then((results) => {
-       let templateVars = {
-          pin_id: results[0].id,
-          title: results[0].title,
-          description: results[0].description,
-          latitude: results[0].latitude,
-          longitude: results[0].longitude,
-          id: results[0].map_id,
-          duser_id: results[0].duser_id
-        }
-        res.render("edit", {result: templateVars, user_id: req.cookies["user_id"]});
-    });
+  knex.select('id','title', 'user_id').from('maps').where('id', req.params.id).then((results) => {
+
+    let templateVars = {
+      id: results[0].id,
+      title: results[0].title,
+      duser_id: results[0].user_id,
+      user_id: req.cookies["user_id"]
+    }
+    res.render("edit", templateVars);
+  });
 });
 
 app.post("/maps", (req, res) => {
@@ -257,7 +254,7 @@ app.get("/users/:id/maps/created", (req, res) => {
 //   });
 // });
 
-app.get("/test", (req, res) => {
+app.get("/", (req, res) => {
   res.render("test");
 });
 

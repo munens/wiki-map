@@ -23,7 +23,7 @@
       <section class="new-map">
       <% if (user_id) { %>
         <form method="POST" action = '/maps'>
-          <input class="btn btn-info" type="submit" value="Create New Map">
+          <input id='create-new-map' class="btn btn-info" type="submit" value="Create New Map">
         </form>
         <% } else { %>
         <p> Please log in to create a map! </p>
