@@ -13,7 +13,7 @@
 }
 
 body {
-	background-image:  url(https://s3-us-west-2.amazonaws.com/coverr/poster/Traffic-blurred2.jpg);
+	background-image:  url();
 }
 
 .container #article-edit{
@@ -29,6 +29,18 @@ body {
 
 }
 
+.list-group {
+	margin: 30px;
+	width: 250px;
+	border-radius: 12px;
+
+}
+
+.list-group:hover {
+	-moz-box-shadow:    3px 3px 6px 9px #2B2d42;
+  	-webkit-box-shadow: 3px 3px 6px 9px #2B2d42;
+  	box-shadow:         3px 3px 6px 9px #2B2d42;
+}
 
 .container #article-edit #map-edit {
 	height: 750px;
