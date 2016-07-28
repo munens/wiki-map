@@ -61,9 +61,7 @@ module.exports = (knex) => {
          //    description: results[0].description,
          //    latitude: results[0].latitude,
          //    longitude: results[0].longitude,
-         //    id: results[0].map_id,
-         //    duser_id: results[0].duser_id
-         //  }
+       
          //res.render("edit", {result: templateVars, user_id: req.cookies["user_id"]});
         res.json(results);
     });
